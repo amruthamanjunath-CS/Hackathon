@@ -1,16 +1,16 @@
-// Spoken reminders the patient can confirm; postponed ones reschedule in 10 minutes and log as missed for caregivers.
+// Spoken reminders the patient can confirm; persists or gently re-prompts until explicitly marked "Done".
 (function () {
   window.ML = window.ML || {}; ML.enter = ML.enter || {};
   let demo = false, current = null;
   const $ = s => document.querySelector(s);
   const todayKey = () => ML.dkey(Date.now());
   
-  // Checks if a reminder was already completed (done) today
+  // A reminder is only cleared for the day if it was explicitly marked as 'done'
   const isDoneToday = id => ML.state.events.some(e => e.type === 'reminder' && e.ref === id && e.status === 'done' && ML.dkey(e.ts) === todayKey());
   
   function pick() {
     const now = new Date(), hm = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-    // Find reminders that haven't been successfully completed today yet
+    // Find the first reminder scheduled for today that has NOT been marked 'done' yet
     return ML.state.reminders.find(r => !isDoneToday(r.id) && (demo || r.time <= hm));
   }
 
@@ -34,7 +34,8 @@
     box.innerHTML = `
       <div class="text-center py-6">
         <p class="text-7xl mb-4">${current.icon || '🔔'}</p>
-        <p class="text-2xl font-extrabold text-stone-900 mb-8">${current.label}</p>
+        <p class="text-2xl font-extrabold text-stone-900 mb-2">${current.label}</p>
+        <p class="text-sm text-amber-700 font-semibold mb-6">⏳ Waiting for your confirmation</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <button class="btn yes bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-8 rounded-2xl text-lg shadow-md transition cursor-pointer" id="yes">✅ Yes, done</button>
           <button class="btn ghost bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold py-4 px-8 rounded-2xl text-lg shadow-md transition cursor-pointer" id="later">Not yet</button>
@@ -63,11 +64,12 @@
       if (typeof ML.say === 'function') ML.say(words); 
       demo = false;
 
-      // If patient clicked "Not yet" or timed out, remind again after 10 minutes (600,000 ms)
+      // If the patient clicked "Not yet", keep the task active/pending. 
+      // After a short pause (e.g., 5 seconds), it loops back and asks them again until they press "Yes, done".
       if (status === 'missed') {
         setTimeout(() => {
-          render(); // Re-trigger reminder prompt after 10 mins
-        }, 10 * 60 * 1000);
+          render(); // Re-prompts the same task until done!
+        }, 5000);
       }
     };
 
@@ -78,11 +80,11 @@
       yesBtn.onclick = () => finish('done', 'Thank you. Well done.');
     }
     if (laterBtn) {
-      laterBtn.onclick = () => finish('missed', 'That is alright. We will gently remind you again in a little while.');
+      laterBtn.onclick = () => finish('missed', 'That is alright. We will check back with you shortly.');
     }
     
-    // Automated timeout if left unanswered for 30 seconds -> treats as missed and schedules retry
-    ML.remTimer = setTimeout(() => finish('missed', 'That is alright. We will gently remind you again soon.'), 30000);
+    // If left unattended, gently re-prompt after 30 seconds
+    ML.remTimer = setTimeout(() => finish('missed', 'Checking back in. Have you completed this?'), 30000);
   }
 
   ML.enter.remind = render;
