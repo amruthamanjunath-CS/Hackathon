@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memory Lane — Patient</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        /* Ensures hidden attribute works cleanly with display utility */
+        [hidden] { display: none !important; }
+    </style>
+</head>
+<body class="patient bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100 min-h-screen flex flex-col justify-between p-6 select-none text-stone-800">
+
+    <!-- HOME SCREEN -->
+    <section class="screen max-w-4xl mx-auto w-full my-auto flex flex-col justify-center items-center text-center" id="home">
+        <div class="mb-6">
+            <span class="bg-amber-200/80 text-amber-900 font-extrabold px-5 py-2 rounded-full text-sm inline-block shadow-sm mb-3">
+                ☀️ Have a wonderful day!
+            </span>
+            <p class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight" id="greet">Hello 🌞</p>
+            <p class="text-stone-600 font-medium mt-2 text-lg">Tap a button below to choose what you'd like to do:</p>
+        </div>
+
+        <div class="big-grid grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-3xl my-6">
+            <button class="btn big group bg-sky-400 hover:bg-sky-500 text-white p-8 rounded-3xl shadow-xl shadow-sky-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" data-go="remind">
+                <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">⏰</span>
+                <span class="text-2xl font-extrabold tracking-wide">My day</span>
+            </button>
+            <button class="btn big sun group bg-emerald-400 hover:bg-emerald-500 text-white p-8 rounded-3xl shadow-xl shadow-emerald-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" data-go="play">
+                <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">🎲</span>
+                <span class="text-2xl font-extrabold tracking-wide">Play</span>
+            </button>
+            <button class="btn big ghost group bg-pink-400 hover:bg-pink-500 text-white p-8 rounded-3xl shadow-xl shadow-pink-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" data-go="album">
+                <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">🖼️</span>
+                <span class="text-2xl font-extrabold tracking-wide">Photos</span>
+            </button>
+        </div>
+
+        <p class="tiny mt-4">
+            <a href="../index.html" class="text-sm font-bold text-stone-500 hover:text-stone-800 bg-white/80 px-5 py-2.5 rounded-2xl shadow-sm inline-block border border-amber-200 transition">← Back to start</a>
+        </p>
+    </section>
+
+    <!-- REMINDERS SCREEN -->
+    <section class="screen max-w-2xl mx-auto w-full my-auto" id="remind" hidden>
+        <div class="topbar flex justify-between items-center mb-6">
+            <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 cursor-pointer" data-go="home">🏠 Home</button>
+            <button class="btn ghost bg-sky-500 hover:bg-sky-600 text-white font-bold px-4 py-2.5 rounded-2xl shadow-md cursor-pointer" id="repeat">🔊 Again</button>
+        </div>
+        <div id="remBody" class="bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-stone-200 min-h-[200px]"></div>
+        <p class="tiny text-center mt-4">
+            <button id="demoRem" class="text-xs font-bold text-stone-500 hover:text-stone-800 underline cursor-pointer">Demo: show next reminder now</button>
+        </p>
+    </section>
+
+    <!-- PLAY MENU SCREEN -->
+   <section class="screen max-w-3xl mx-auto w-full my-auto text-center" id="play" hidden>
+    <div class="topbar flex justify-start mb-6">
+        <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 cursor-pointer" data-go="home">🏠 Home</button>
+    </div>
+    <div class="big-grid grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <button class="btn big sun group bg-emerald-500 hover:bg-emerald-600 text-white p-8 rounded-3xl shadow-xl shadow-emerald-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" id="g1">
+            <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">🃏</span>
+            <span class="text-2xl font-extrabold tracking-wide">Match pairs</span>
+        </button>
+        <button class="btn big group bg-teal-500 hover:bg-teal-600 text-white p-8 rounded-3xl shadow-xl shadow-teal-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" id="g2">
+            <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">🍎</span>
+            <span class="text-2xl font-extrabold tracking-wide">Which one?</span>
+        </button>
+        <button class="btn big group bg-pink-500 hover:bg-pink-600 text-white p-8 rounded-3xl shadow-xl shadow-pink-500/20 flex flex-col items-center justify-center transition-all transform active:scale-95 border-4 border-white cursor-pointer" id="g3">
+            <span class="text-6xl mb-3 group-hover:scale-110 transition-transform">👥</span>
+            <span class="text-2xl font-extrabold tracking-wide">Family Match</span>
+        </button>
+    </div>
+</section>
+
+    <!-- ACTIVE GAME SCREEN -->
+    <section class="screen max-w-2xl mx-auto w-full my-auto" id="game" hidden>
+        <div class="topbar mb-6">
+            <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 cursor-pointer" data-go="play">⬅ Back</button>
+        </div>
+        <p class="msg text-lg font-bold text-stone-800 mb-4 text-center" id="gMsg"></p>
+        <div id="gBoard" class="bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-stone-200"></div>
+    </section>
+
+    <!-- PHOTO ALBUM SCREEN -->
+    <section class="screen max-w-4xl mx-auto w-full my-auto" id="album" hidden>
+        <div class="topbar mb-6">
+            <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 cursor-pointer" data-go="home">🏠 Home</button>
+        </div>
+        <div id="albBody" class="bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-stone-200 min-h-[300px]"></div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/speech.js"></script>
+    <script src="../assets/js/patient-reminders.js"></script>
+    <script src="../assets/js/patient-games.js"></script>
+    <script src="../assets/js/patient-album.js"></script>
+    <script src="../assets/js/patient.js"></script>
+</body>
+</html>

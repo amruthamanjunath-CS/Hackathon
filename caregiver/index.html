@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Memory Lane — Caregiver</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="caregiver bg-stone-100 text-stone-800 min-h-screen flex flex-col">
+
+    <!-- Top Site Header -->
+    <header class="site bg-white border-b border-stone-200 px-6 py-4 flex flex-col sm:flex-row justify-between items-center shadow-sm sticky top-0 z-10 gap-2">
+        <h1 class="text-xl font-bold text-stone-900 flex items-center gap-2"><span>🌿</span> Memory Lane · Caregiver</h1>
+        <span class="flex items-center gap-4 text-sm font-semibold">
+            <a href="../index.html" class="text-stone-600 hover:text-stone-900 transition">Start</a>
+            <a href="../patient/index.html" target="_blank" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-xl transition shadow-sm">Open patient screen ↗</a>
+        </span>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl w-full mx-auto p-6 md:p-8 space-y-6 my-auto">
+        
+        <!-- Disclaimer Note -->
+        <div class="note bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-2xl text-sm leading-relaxed shadow-sm">
+            This dashboard supports care. It shows changes against the person's own usual pattern and does not diagnose anything. Please speak to their doctor about any worries.
+        </div>
+
+        <!-- Alerts Section -->
+        <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200">
+            <h2 class="text-lg font-bold text-stone-900 mb-3 flex items-center gap-2"><span>⚠️</span> Alerts</h2>
+            <div id="alerts" class="space-y-2 font-medium"></div>
+        </div>
+
+        <!-- Weekly Engagement Chart Card -->
+        <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200">
+            <h2 class="text-lg font-bold text-stone-900 mb-1 flex items-center gap-2"><span>📊</span> Engagement over the last week</h2>
+            <p class="text-stone-500 text-xs md:text-sm mb-6">Each bar = reminders confirmed + games + photos looked at. Amber = well below usual. Faded bar = today so far.</p>
+            <div class="chart flex items-end gap-3 h-48 border-b border-stone-200 pb-2 px-2" id="chart"></div>
+            <div class="labels flex justify-between text-xs font-bold text-stone-500 mt-3 px-2" id="labels"></div>
+        </div>
+
+        <!-- Two Column Grid: Changes & Comparison Table -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200">
+                <h2 class="text-lg font-bold text-stone-900 mb-3 flex items-center gap-2"><span>🔍</span> What changed</h2>
+                <div id="changes" class="text-sm text-stone-600 space-y-2"></div>
+            </div>
+            <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200 overflow-x-auto">
+                <h2 class="text-lg font-bold text-stone-900 mb-3 flex items-center gap-2"><span>📈</span> Usual vs last 2 days (per day)</h2>
+                <table id="cmp" class="w-full text-left text-sm border-collapse"></table>
+            </div>
+        </div>
+
+        <!-- Two Column Grid: Reminders & Album Forms -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Daily Reminders Manager -->
+            <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-stone-900 mb-4 flex items-center gap-2"><span>⏰</span> Daily reminders</h2>
+                    <div id="remList" class="space-y-2 mb-4 text-sm font-medium"></div>
+                </div>
+                <form class="stack space-y-3 pt-4 border-t border-stone-100" id="remForm">
+                    <input id="rLabel" placeholder="e.g. Drink a glass of water" required class="w-full border border-stone-200 bg-stone-50 p-3 rounded-2xl text-sm font-medium focus:outline-teal-600">
+                    <div class="flex gap-3">
+                        <input id="rTime" type="time" value="10:00" required class="border border-stone-200 bg-stone-50 p-3 rounded-2xl text-sm font-medium focus:outline-teal-600">
+                        <button class="btn flex-1 bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-2xl transition shadow-sm cursor-pointer text-sm">Add reminder</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Memory Album Manager -->
+            <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-stone-900 mb-4 flex items-center gap-2"><span>🖼️</span> Memory album</h2>
+                    <div id="albList" class="space-y-2 mb-4 text-sm font-medium"></div>
+                </div>
+                <form class="stack space-y-3 pt-4 border-t border-stone-100" id="albForm">
+                    <label class="block text-xs font-bold text-stone-500 uppercase">Photo
+                        <input id="aPhoto" type="file" accept="image/*" required class="mt-1 w-full border border-stone-200 bg-stone-50 p-2 rounded-xl text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-teal-50 file:text-teal-700 font-bold">
+                    </label>
+                    <input id="aCap" placeholder="What patient hears, e.g. Your son Arun." required class="w-full border border-stone-200 bg-stone-50 p-3 rounded-2xl text-sm font-medium focus:outline-teal-600">
+                    <input id="aQ" placeholder="Gentle question, e.g. Who is this?" required class="w-full border border-stone-200 bg-stone-50 p-3 rounded-2xl text-sm font-medium focus:outline-teal-600">
+                    <label class="block text-xs font-bold text-stone-500 uppercase">Voice note (optional)
+                        <input id="aAudio" type="file" accept="audio/*" class="mt-1 w-full border border-stone-200 bg-stone-50 p-2 rounded-xl text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-teal-50 file:text-teal-700 font-bold">
+                    </label>
+                    <button class="btn w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-4 rounded-2xl transition shadow-sm cursor-pointer text-sm">Add to album</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Demo Controls Card -->
+        <div class="card bg-white p-6 rounded-3xl shadow-sm border border-stone-200">
+            <h2 class="text-lg font-bold text-stone-900 mb-4 flex items-center gap-2"><span>⚙️</span> Demo controls</h2>
+            <div class="actions flex flex-wrap gap-3">
+                <button class="btn bg-stone-800 hover:bg-stone-900 text-white font-bold py-2.5 px-5 rounded-xl transition text-sm cursor-pointer" id="reseed">Reload simulated week</button>
+                <button class="btn danger bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold py-2.5 px-5 rounded-xl transition text-sm cursor-pointer border border-rose-200" id="clear">Clear all activity</button>
+                <button class="btn ghost bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold py-2.5 px-5 rounded-xl transition text-sm cursor-pointer" id="refresh">Refresh</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../assets/js/store.js"></script>
+    <script src="../assets/js/caregiver-dashboard.js"></script>
+    <script src="../assets/js/caregiver-manage.js"></script>
+</body>
+</html>
