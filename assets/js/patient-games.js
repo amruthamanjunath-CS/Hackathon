@@ -1,10 +1,8 @@
-// Gentle cognitive games for dementia care. No scores, no failure penalties; mistakes simply fade or reset gently.
 (function () {
   window.ML = window.ML || {};
   const $ = s => document.querySelector(s);
-  const praise = ['Lovely!', 'Well done!', 'That was nice.', 'Wonderful.'];
+  const praise = ['Lovely!', 'Well done!', 'That was nice.', 'Wonderful.', 'Splendid!'];
   
-  // Safe show helper if ML.show isn't defined globally yet
   const showScreen = screenId => {
     if (typeof ML.show === 'function') {
       ML.show(screenId);
@@ -20,7 +18,7 @@
     $('#gBoard').innerHTML = `
       <div class="text-center py-8">
         <p class="text-6xl mb-4">🌸</p>
-        <p class="text-stone-700 font-bold text-lg mb-6">Wonderful job completing the game!</p>
+        <p class="text-stone-800 font-extrabold text-xl mb-6">Wonderful job completing the activity!</p>
         <div class="flex flex-col sm:flex-row justify-center gap-4">
           <button class="btn bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 px-6 rounded-2xl transition shadow-sm cursor-pointer" data-go="play">Play another</button>
           <button class="btn ghost bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold py-3.5 px-6 rounded-2xl transition shadow-sm cursor-pointer" data-go="home">Home</button>
@@ -28,20 +26,20 @@
       </div>
     `;
     $('#gMsg').textContent = 'Thank you for playing.'; 
-    if (typeof ML.say === 'function') ML.say('Thank you for playing. Well done.');
+    if (typeof ML.say === 'function') ML.say('Thank you for completing the activity. Well done.');
   };
 
-  // Game 1: Matching Pairs
   function pairs() {
     showScreen('game'); 
-    $('#gMsg').textContent = 'Find the matching pictures'; 
-    if (typeof ML.say === 'function') ML.say('Find the matching pictures.');
+    $('#gMsg').textContent = 'Find all matching picture pairs'; 
+    if (typeof ML.say === 'function') ML.say('Find all matching picture pairs.');
     
-    const set = ['🌻', '🐶', '🍎'], deck = set.concat(set).sort(() => Math.random() - .5);
-    let open = [], lock = false, left = 3;
+    const set = ['🌻', '🐶', '🍎', '🌊', '🏡', '🦋'];
+    const deck = set.concat(set).sort(() => Math.random() - .5);
+    let open = [], lock = false, left = set.length;
     
-    $('#gBoard').innerHTML = '<div class="grid grid-cols-3 gap-4 max-w-sm mx-auto">' + deck.map((c, i) => `
-      <button class="tile bg-amber-100 hover:bg-amber-200 text-3xl h-24 rounded-2xl shadow-sm border border-amber-200 transition flex items-center justify-center cursor-pointer" data-i="${i}" aria-label="card">❓</button>
+    $('#gBoard').innerHTML = '<div class="grid grid-cols-4 gap-3 max-w-md mx-auto">' + deck.map((c, i) => `
+      <button class="tile bg-amber-100 hover:bg-amber-200 text-3xl h-20 rounded-2xl shadow-sm border border-amber-200 transition flex items-center justify-center cursor-pointer" data-i="${i}" aria-label="card">❓</button>
     `).join('') + '</div>';
     
     document.querySelectorAll('.tile').forEach(t => t.onclick = () => {
@@ -55,8 +53,8 @@
       
       if (deck[a.dataset.i] === deck[b.dataset.i]) { 
         left--; 
-        $('#gMsg').textContent = praise[left % 4]; 
-        if (!left) setTimeout(() => finish('Match pairs'), 900); 
+        $('#gMsg').textContent = praise[left % praise.length]; 
+        if (!left) setTimeout(() => finish('Match pairs'), 1000); 
       } else { 
         lock = true; 
         setTimeout(() => { 
@@ -66,54 +64,102 @@
             x.textContent = '❓'; 
           }); 
           lock = false; 
-        }, 1100); 
+        }, 1000); 
       }
     });
   }
 
-  // Game 2: Which One?
-  function which() {
+  function jigsawPuzzle() {
     showScreen('game');
-    const rounds = [
-      ['Which one can you eat?', ['🍎', '🚗', '🪑'], '🍎'], 
-      ['Which one goes on your feet?', ['🍌', '👟', '🔑'], '👟'], 
-      ['Which one can you drink?', ['📕', '⚽', '🥛'], '🥛']
+    $('#gMsg').textContent = 'Complete the scenic puzzle';
+    if (typeof ML.say === 'function') ML.say('Complete the scenic puzzle by placing each piece.');
+
+    const pieces = [
+      { id: 'p1', icon: '🌻', label: 'Sunflower' },
+      { id: 'p2', icon: '🏡', label: 'Cottage' },
+      { id: 'p3', icon: '🦋', label: 'Butterfly' },
+      { id: 'p4', icon: '🌳', label: 'Tree' },
+      { id: 'p5', icon: '🌊', label: 'River' },
+      { id: 'p6', icon: '🐦', label: 'Bird' }
     ];
-    let n = 0;
-    
-    (function next() {
-      if (n === rounds.length) return finish('Which one?');
-      const [q, opts, ans] = rounds[n]; 
-      $('#gMsg').textContent = q; 
-      if (typeof ML.say === 'function') ML.say(q);
-      
-      $('#gBoard').innerHTML = '<div class="grid grid-cols-3 gap-4 max-w-md mx-auto">' + opts.map(o => `
-        <button class="tile bg-white hover:bg-amber-50 text-4xl h-28 rounded-2xl shadow-sm border border-stone-200 transition flex items-center justify-center cursor-pointer">${o}</button>
-      `).join('') + '</div>';
-      
-      document.querySelectorAll('.tile').forEach(t => {
-        t.onclick = () => {
-          if (t.textContent === ans) { 
-            $('#gMsg').textContent = praise[n]; 
-            if (typeof ML.say === 'function') ML.say(praise[n]); 
-            n++; 
-            setTimeout(next, 1200); 
-          } else { 
-            t.classList.add('opacity-40', 'scale-95'); 
-            if (typeof ML.say === 'function') ML.say('Have another look.'); 
+
+    let selectedPiece = null;
+    let placedCount = 0;
+
+    const shuffledPieces = [...pieces].sort(() => Math.random() - 0.5);
+    const shuffledSlots = [...pieces].sort(() => Math.random() - 0.5);
+
+    $('#gBoard').innerHTML = `
+      <div class="space-y-6 max-w-lg mx-auto">
+        <div>
+          <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Picture Board (Target Slots)</p>
+          <div class="grid grid-cols-6 gap-2" id="slotContainer">
+            ${shuffledSlots.map(slot => `
+              <div class="puzzle-slot bg-stone-100 border-2 border-dashed border-stone-300 h-16 rounded-xl flex flex-col items-center justify-center text-2xl transition cursor-pointer" data-target="${slot.id}">
+                <span class="text-[10px] text-stone-400 font-bold">${slot.label[0]}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Available Pieces (Tap to pick)</p>
+          <div class="grid grid-cols-6 gap-2" id="pieceContainer">
+            ${shuffledPieces.map(piece => `
+              <button class="puzzle-piece bg-white hover:bg-teal-50 border-2 border-stone-200 h-16 rounded-xl shadow-sm text-2xl flex items-center justify-center transition cursor-pointer" data-id="${piece.id}">
+                ${piece.icon}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.querySelectorAll('.puzzle-piece').forEach(btn => {
+      btn.onclick = () => {
+        if (btn.classList.contains('opacity-30')) return;
+        document.querySelectorAll('.puzzle-piece').forEach(b => b.classList.remove('ring-4', 'ring-teal-400', 'border-teal-500', 'bg-teal-50'));
+        btn.classList.add('ring-4', 'ring-teal-400', 'border-teal-500', 'bg-teal-50');
+        selectedPiece = btn.dataset.id;
+        if (typeof ML.say === 'function') ML.say('Selected piece');
+      };
+    });
+
+    document.querySelectorAll('.puzzle-slot').forEach(slot => {
+      slot.onclick = () => {
+        if (!selectedPiece || slot.classList.contains('filled')) return;
+
+        if (slot.dataset.target === selectedPiece) {
+          const pieceObj = pieces.find(p => p.id === selectedPiece);
+          slot.innerHTML = `<span class="text-2xl">${pieceObj.icon}</span>`;
+          slot.classList.add('filled', 'bg-emerald-50', 'border-emerald-400', 'border-solid');
+          slot.classList.remove('border-dashed', 'bg-stone-100');
+
+          const usedBtn = document.querySelector(`.puzzle-piece[data-id="${selectedPiece}"]`);
+          usedBtn.classList.add('opacity-30', 'pointer-events-none');
+          usedBtn.classList.remove('ring-4', 'ring-teal-400', 'border-teal-500', 'bg-teal-50');
+
+          selectedPiece = null;
+          placedCount++;
+
+          if (typeof ML.say === 'function') ML.say('Great placement!');
+          if (placedCount === pieces.length) {
+            setTimeout(() => finish('Jigsaw Puzzle'), 1200);
           }
-        };
-      });
-    })();
+        } else {
+          slot.classList.add('bg-amber-50', 'border-amber-300');
+          setTimeout(() => slot.classList.remove('bg-amber-50', 'border-amber-300'), 800);
+          if (typeof ML.say === 'function') ML.say('Try another spot.');
+        }
+      };
+    });
   }
 
-  // Game 3: Synthetic Family Member Match (4-5 Photos matched with Names & Relationships)
   function familyMatch() {
     showScreen('game');
-    $('#gMsg').textContent = 'Match each family member with their name';
-    if (typeof ML.say === 'function') ML.say('Match each family member with their name.');
+    $('#gMsg').textContent = 'Match all family members with their names';
+    if (typeof ML.say === 'function') ML.say('Match all family members with their names.');
 
-    // 5 Rich Synthetic Family Profiles with Photos, Names, and Relationships
     const syntheticFamily = [
       { id: '1', photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2', name: 'Anagha', relation: 'Daughter' },
       { id: '2', photo: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb', name: 'Rahul', relation: 'Son' },
@@ -125,28 +171,25 @@
     let selectedPhoto = null;
     let matchedCount = 0;
 
-    // Shuffle both columns independently so items don't align statically
     const photosShuffled = [...syntheticFamily].sort(() => Math.random() - 0.5);
     const namesShuffled = [...syntheticFamily].sort(() => Math.random() - 0.5);
 
     $('#gBoard').innerHTML = `
       <div class="grid grid-cols-2 gap-6 max-w-xl mx-auto items-center">
-        <!-- Photos Column -->
-        <div class="space-y-3">
+        <div class="space-y-2.5">
           <p class="text-xs font-bold text-stone-400 uppercase tracking-wider text-center mb-1">Faces</p>
           ${photosShuffled.map(item => `
             <button class="photo-btn w-full bg-white border-2 border-stone-200 p-2 rounded-2xl shadow-sm flex items-center justify-center hover:border-teal-500 transition cursor-pointer group" data-id="${item.id}">
-              <img src="${item.photo}" class="w-16 h-16 object-cover rounded-xl pointer-events-none shadow-sm group-hover:scale-105 transition-transform">
+              <img src="${item.photo}" class="w-14 h-14 object-cover rounded-xl pointer-events-none shadow-sm group-hover:scale-105 transition-transform">
             </button>
           `).join('')}
         </div>
-        <!-- Names & Relations Column -->
-        <div class="space-y-3">
+        <div class="space-y-2.5">
           <p class="text-xs font-bold text-stone-400 uppercase tracking-wider text-center mb-1">Names & Relation</p>
           ${namesShuffled.map(item => `
-            <button class="name-btn w-full bg-white border-2 border-stone-200 py-3.5 px-3 rounded-2xl shadow-sm text-left hover:border-teal-500 transition cursor-pointer flex flex-col justify-center" data-id="${item.id}">
-              <span class="font-extrabold text-stone-900 text-base">${item.name}</span>
-              <span class="text-xs font-semibold text-teal-600">${item.relation}</span>
+            <button class="name-btn w-full bg-white border-2 border-stone-200 py-3 px-3 rounded-2xl shadow-sm text-left hover:border-teal-500 transition cursor-pointer flex flex-col justify-center" data-id="${item.id}">
+              <span class="font-extrabold text-stone-900 text-sm">${item.name}</span>
+              <span class="text-[11px] font-semibold text-teal-600">${item.relation}</span>
             </button>
           `).join('')}
         </div>
@@ -192,7 +235,7 @@
 
   document.addEventListener('DOMContentLoaded', () => { 
     if ($('#g1')) $('#g1').onclick = pairs; 
-    if ($('#g2')) $('#g2').onclick = which;
+    if ($('#g2')) $('#g2').onclick = jigsawPuzzle;
     if ($('#g3')) $('#g3').onclick = familyMatch;
   });
 })();

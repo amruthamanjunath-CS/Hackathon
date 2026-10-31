@@ -1,4 +1,4 @@
-// Shared data layer: localStorage state, simulated week, engagement analysis.
+// Shared data layer: localStorage state, simulated week, engagement analysis, and emergency event handling.
 window.ML = window.ML || {};
 (function () {
   const KEY = 'memorylane.v1', DAY = 864e5;
@@ -67,6 +67,18 @@ window.ML = window.ML || {};
     ML.save(); 
   };
 
+  // Listen for real-time state sync across browser tabs (e.g. Patient SOS -> Caregiver Dashboard)
+  window.addEventListener('storage', (e) => {
+    if (e.key === KEY && e.newValue) {
+      try {
+        ML.state = JSON.parse(e.newValue);
+        if (typeof ML.renderDashboard === 'function') {
+          ML.renderDashboard();
+        }
+      } catch (err) {}
+    }
+  });
+
   ML.analyze = function () {
     const st = ML.state, days = [];
     for (let i = 7; i >= 0; i--) days.push(dkey(Date.now() - i * DAY));
@@ -89,6 +101,12 @@ window.ML = window.ML || {};
     const label = id => (st.reminders.find(x => x.id === id) || {}).short || 'Reminder';
     const wd = d => new Date(d + 'T12:00').toLocaleDateString('en', { weekday: 'short' });
     const today = series[7], alerts = [], changes = [];
+
+    // Check for emergency SOS events and push to alerts if any exist
+    const emergencyEvents = st.events.filter(x => x.type === 'emergency');
+    if (emergencyEvents.length > 0) {
+      alerts.unshift(`🚨 URGENT: Patient triggered ${emergencyEvents.length} emergency SOS help request(s).`);
+    }
 
     if (b.score > 0 && r.score < 0.7 * b.score) {
       const dropPct = Math.round((1 - r.score / b.score) * 100);

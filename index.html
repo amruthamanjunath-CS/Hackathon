@@ -1,323 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Memory Lane | Remind & Reconnect</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: #FAFAFA;
-            color: #263238;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .serif {
-            font-family: 'Playfair Display', serif;
-        }
-
-        .glow {
-            position: fixed;
-            width: 350px;
-            height: 350px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: .22;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .portal {
-            display: flex;
-            overflow: hidden;
-            border-radius: 24px;
-            min-height: 310px;
-            transition: .35s ease;
-            text-decoration: none;
-        }
-
-        .portal:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(38, 50, 56, .13);
-        }
-
-        .portal img {
-            width: 40%;
-            object-fit: cover;
-            transition: transform .5s ease;
-        }
-
-        .portal:hover img {
-            transform: scale(1.04);
-        }
-
-        .portal-content {
-            flex: 1;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .arrow {
-            transition: transform .3s ease;
-        }
-
-        .portal:hover .arrow {
-            transform: translateX(5px);
-        }
-
-        .fade {
-            animation: fade .8s ease both;
-        }
-
-        @keyframes fade {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @media(max-width: 767px) {
-            .portal {
-                min-height: 240px;
-            }
-
-            .portal img {
-                width: 36%;
-            }
-
-            .portal-content {
-                padding: 17px;
-            }
-        }
-
-        @media(max-width: 420px) {
-            .portal img {
-                width: 32%;
-            }
-
-            .portal-content {
-                padding: 13px;
-            }
-        }
-    </style>
+    <title>Memory Lane — Home</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="assets/css/base.css">
+    
 </head>
+<body class="bg-stone-50 min-h-screen flex flex-col justify-between p-4 sm:p-6 font-sans">
 
-<body class="min-h-screen flex items-center">
-
-    <!-- BACKGROUND ACCENTS -->
-    <div class="glow bg-blue-200 -top-32 -right-20"></div>
-    <div class="glow bg-yellow-200 -bottom-32 -left-20"></div>
-
-    <main class="max-w-6xl w-full mx-auto px-5 md:px-10 py-7">
-
-        <!-- HEADER -->
-        <header class="flex justify-between items-center fade">
-
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center">
-                    <i data-lucide="brain" class="w-6 h-6 text-blue-600"></i>
-                </div>
-
-                <div>
-                    <h2 class="font-extrabold text-lg">Memory Lane</h2>
-                    <p class="text-xs text-gray-500">Remind & Reconnect</p>
-                </div>
+    <!-- Header -->
+    <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-2">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-stone-900 text-white flex items-center justify-center shadow-md font-bold text-lg">
+                🧠
             </div>
+            <div>
+                <h2 class="font-extrabold text-stone-900 text-base leading-tight">Memory Lane</h2>
+                <p class="text-[11px] text-stone-500 font-semibold">Remind & Reconnect</p>
+            </div>
+        </div>
+        <div class="text-xs sm:text-sm font-extrabold text-teal-800 bg-teal-50 px-3.5 py-2 rounded-2xl border border-teal-200">
+            🌿 Dementia Care Companion
+        </div>
+    </header>
 
-            <span class="hidden sm:flex items-center gap-2 text-xs font-semibold text-blue-700 bg-blue-100 px-4 py-2 rounded-full">
-                <i data-lucide="heart" class="w-4 h-4"></i>
-                A companion in care
-            </span>
+    <!-- Main Content Area -->
+    <main class="max-w-5xl w-full mx-auto flex-1 flex flex-col items-center justify-center py-6">
 
-        </header>
-
-
-        <!-- HERO -->
-        <section class="text-center mt-12 md:mt-14 mb-10 fade">
-
-            <span class="inline-block text-xs tracking-widest font-bold text-blue-700 bg-blue-100 px-4 py-2 rounded-full mb-5">
-                DEMENTIA CARE COMPANION
-            </span>
-
-            <h1 class="serif text-4xl md:text-6xl leading-tight text-[#263238]">
-                Memories connect us.
-                <span class="block bg-gradient-to-r from-blue-600 via-red-500 to-yellow-500 bg-clip-text text-transparent">
-                    Let's keep them close.
-                </span>
+        <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight">
+                Memories connect us. <span class="text-teal-600">Let's keep them close.</span>
             </h1>
-
-            <p class="text-gray-500 max-w-xl mx-auto mt-4 text-sm md:text-base leading-relaxed">
-                Making everyday routines easier, memories more accessible,
-                and connections stronger between individuals and caregivers.
+            <p class="text-stone-500 text-sm sm:text-base font-medium leading-relaxed">
+                A compassionate platform bridging daily routines, family photo memories, and caregiver insights with clear, engaging design.
             </p>
+        </div>
 
-        </section>
-
-
-        <!-- PORTAL CARDS -->
-        <section class="grid md:grid-cols-2 gap-6 fade"
-                 style="animation-delay:.2s">
-
-            <!-- PATIENT -->
-            <a href="patient/index.html"
-               class="portal bg-blue-50 border border-blue-200 shadow-sm">
-
-                <img
-                    src="patient-memory-photo.png"
-                    alt="Elderly man enjoying a family photo album"
-                >
-
-                <div class="portal-content">
-
-                    <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center mb-4">
-                        <i data-lucide="user-round" class="w-6 h-6 text-blue-600"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-widest font-bold text-blue-700 mb-2">
-                        PATIENT EXPERIENCE
-                    </span>
-
-                    <h2 class="serif text-2xl md:text-3xl font-semibold text-blue-950">
-                        Patient Screen
-                    </h2>
-
-                    <p class="text-xs md:text-sm text-slate-600 mt-3 leading-relaxed">
-                        A familiar space for daily reminders,
-                        engaging activities and cherished memories.
-                    </p>
-
-                    <div class="space-y-2 mt-4 text-xs text-blue-800">
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="bell" class="w-4 h-4"></i>
-                            Daily reminders
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="puzzle" class="w-4 h-4"></i>
-                            Cognitive games
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="images" class="w-4 h-4"></i>
-                            Memory album
-                        </div>
-
-                    </div>
-
-                    <div class="border-t border-blue-200 mt-5 pt-4 flex justify-between items-center">
-
-                        <span class="text-xs font-bold text-blue-700">
-                            Open patient screen
-                        </span>
-
-                        <i data-lucide="arrow-right" class="arrow w-5 h-5 text-blue-600"></i>
-
-                    </div>
-
+        <!-- Portal Navigation Grid with clean spacing -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mx-auto mt-4">
+            
+            <!-- Patient Portal Card -->
+            <a href="patient/index.html" class="group bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white p-6 sm:p-7 rounded-3xl shadow-xl shadow-teal-500/20 flex flex-col items-start justify-between transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer w-full">
+                <div class="w-full flex justify-between items-start mb-4">
+                    <span class="text-4xl sm:text-5xl p-3 bg-white/15 rounded-2xl group-hover:scale-110 transition-transform">🌻</span>
+                    <span class="text-xs font-extrabold bg-white/20 px-3 py-1.5 rounded-xl uppercase tracking-wider">Patient Portal</span>
                 </div>
-
+                <div class="space-y-1 text-left w-full">
+                    <h3 class="text-2xl font-extrabold tracking-wide">Patient Screen</h3>
+                    <p class="text-xs sm:text-sm text-teal-100 font-medium leading-relaxed">Spoken reminders, games & memory album</p>
+                </div>
             </a>
 
-
-            <!-- CAREGIVER -->
-            <a href="caregiver/index.html"
-               class="portal bg-red-50 border border-red-200 shadow-sm">
-
-                <img
-                    src="caregiver-photo.png"
-                    alt="Caregiver using a laptop"
-                >
-
-                <div class="portal-content">
-
-                    <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center mb-4">
-                        <i data-lucide="users-round" class="w-6 h-6 text-red-600"></i>
-                    </div>
-
-                    <span class="text-[10px] tracking-widest font-bold text-red-700 mb-2">
-                        CAREGIVER EXPERIENCE
-                    </span>
-
-                    <h2 class="serif text-2xl md:text-3xl font-semibold text-red-950">
-                        Caregiver Dashboard
-                    </h2>
-
-                    <p class="text-xs md:text-sm text-slate-600 mt-3 leading-relaxed">
-                        Manage daily care, track engagement,
-                        organize reminders and add memories.
-                    </p>
-
-                    <div class="space-y-2 mt-4 text-xs text-red-800">
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="chart-no-axes-column-increasing" class="w-4 h-4"></i>
-                            Engagement tracking
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="bell-ring" class="w-4 h-4"></i>
-                            Smart alerts
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="image-plus" class="w-4 h-4"></i>
-                            Photo uploads
-                        </div>
-
-                    </div>
-
-                    <div class="border-t border-red-200 mt-5 pt-4 flex justify-between items-center">
-
-                        <span class="text-xs font-bold text-red-700">
-                            Open dashboard
-                        </span>
-
-                        <i data-lucide="arrow-right" class="arrow w-5 h-5 text-red-600"></i>
-
-                    </div>
-
+            <!-- Caregiver Dashboard Card -->
+            <a href="caregiver/index.html" class="group bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white p-6 sm:p-7 rounded-3xl shadow-xl shadow-rose-600/20 flex flex-col items-start justify-between transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer w-full">
+                <div class="w-full flex justify-between items-start mb-4">
+                    <span class="text-4xl sm:text-5xl p-3 bg-white/15 rounded-2xl group-hover:scale-110 transition-transform">📊</span>
+                    <span class="text-xs font-extrabold bg-white/20 px-3 py-1.5 rounded-xl uppercase tracking-wider">Caregiver Portal</span>
                 </div>
-
+                <div class="space-y-1 text-left w-full">
+                    <h3 class="text-2xl font-extrabold tracking-wide">Dashboard</h3>
+                    <p class="text-xs sm:text-sm text-rose-100 font-medium leading-relaxed">Engagement tracking, reminders & SOS logs</p>
+                </div>
             </a>
 
-        </section>
-
-
-        <!-- FOOTER -->
-        <footer class="flex justify-between items-center flex-wrap gap-3 mt-9 text-xs text-gray-400">
-
-            <span>Memory Lane · Remind & Reconnect</span>
-
-            <span>Built with empathy. Designed for connection.</span>
-
-        </footer>
+        </div>
 
     </main>
 
-    <script>
-        lucide.createIcons();
-    </script>
+    <!-- Footer -->
+    <footer class="text-center text-stone-400 text-xs font-semibold py-3">
+        Memory Lane · Built with vibrant empathy for elder care
+    </footer>
 
 </body>
 </html>
