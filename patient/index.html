@@ -1,157 +1,368 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Lane — Patient Portal</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <style>
-        /* Perfectly center and space out inner game boards, reminders, and albums without touching home buttons */
-        #gBoard { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 2.5rem; width: 100%; box-sizing: border-box; text-align: center; }
-        #remBody { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 2.5rem; width: 100%; box-sizing: border-box; text-align: center; }
-        #albBody { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; padding: 2.5rem; width: 100%; box-sizing: border-box; text-align: center; }
-    </style>
-    
-</head>
-<body class="bg-stone-50 min-h-screen flex flex-col justify-between p-4 sm:p-6 overflow-x-hidden">
 
-    <!-- Header -->
-    <header class="max-w-5xl mx-auto w-full flex justify-between items-center mb-4">
-        <a href="../index.html" class="bg-white hover:bg-stone-100 text-stone-700 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 transition text-sm flex items-center gap-2">
-            <span>🏠</span> Exit to Home
+    <title>Memory Lane — Patient Portal</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Existing CSS -->
+    <link rel="stylesheet" href="../assets/css/base.css">
+
+    <!-- Patient CSS - Load after base.css -->
+    <link rel="stylesheet" href="../assets/css/patient.css">
+
+    <style>
+        #gBoard,
+        #remBody,
+        #albBody {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 2.5rem;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="patient bg-stone-50 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- HEADER -->
+    <header class="patient-header">
+
+        <a href="../index.html"
+           class="bg-white hover:bg-stone-100 text-stone-700 font-bold px-4 py-2.5 rounded-2xl shadow-sm border border-stone-200 transition text-sm flex items-center gap-2">
+
+            <span>🏠</span>
+            Exit to Home
+
         </a>
+
         <div class="text-xs sm:text-sm font-extrabold text-teal-800 bg-teal-50 px-3.5 py-2 rounded-2xl border border-teal-200">
             🌿 Memory Lane Active
         </div>
+
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-5xl w-full mx-auto flex-1 flex flex-col items-center justify-center py-2">
 
-        <!-- HOME SCREEN (Four Buttons Completely Unaltered) -->
-        <section class="screen w-full text-center py-2 flex flex-col items-center justify-center" id="home">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mb-2 tracking-tight" id="greet">Good morning 🌞</h1>
-            <p class="text-stone-500 text-sm sm:text-base mb-6 font-medium">What would you like to do today?</p>
+    <!-- MAIN CONTENT -->
+    <main class="patient-main">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-2xl mx-auto">
-                
-                <!-- My Day -->
-                <button class="btn big w-full group bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white p-6 rounded-3xl shadow-lg shadow-emerald-500/20 flex flex-col items-center justify-center text-center transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" data-go="remind">
-                    <span class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition-transform">🔔</span>
-                    <span class="text-xl font-extrabold tracking-wide">My Day</span>
-                    <span class="text-xs text-emerald-100 font-semibold mt-1">Reminders & daily tasks</span>
+        <!-- =================================
+             HOME SCREEN
+        ================================== -->
+
+        <section class="screen" id="home">
+
+            <h1 id="greet">
+                Good morning 🌞
+            </h1>
+
+            <p>
+                What would you like to do today?
+            </p>
+
+
+            <!-- FOUR MAIN BOXES -->
+
+            <div id="patientHomeGrid">
+
+                <!-- MY DAY -->
+
+                <button
+                    class="btn big bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white shadow-lg border-4 border-white cursor-pointer"
+                    data-go="remind">
+
+                    <span>🔔</span>
+
+                    <span>My Day</span>
+
+                    <span>Reminders & daily tasks</span>
+
                 </button>
 
-                <!-- Play -->
-                <button class="btn big w-full group bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white p-6 rounded-3xl shadow-lg shadow-teal-500/20 flex flex-col items-center justify-center text-center transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" data-go="play">
-                    <span class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition-transform">🧩</span>
-                    <span class="text-xl font-extrabold tracking-wide">Play</span>
-                    <span class="text-xs text-teal-100 font-semibold mt-1">Gentle games & puzzles</span>
+
+                <!-- PLAY -->
+
+                <button
+                    class="btn big bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white shadow-lg border-4 border-white cursor-pointer"
+                    data-go="play">
+
+                    <span>🧩</span>
+
+                    <span>Play</span>
+
+                    <span>Gentle games & puzzles</span>
+
                 </button>
 
-                <!-- Photos -->
-                <button class="btn big w-full group bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white p-6 rounded-3xl shadow-lg shadow-amber-500/20 flex flex-col items-center justify-center text-center transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" data-go="album">
-                    <span class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition-transform">🖼️</span>
-                    <span class="text-xl font-extrabold tracking-wide">Photos</span>
-                    <span class="text-xs text-amber-100 font-semibold mt-1">Family photo album</span>
+
+                <!-- PHOTOS -->
+
+                <button
+                    class="btn big bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white shadow-lg border-4 border-white cursor-pointer"
+                    data-go="album">
+
+                    <span>🖼️</span>
+
+                    <span>Photos</span>
+
+                    <span>Family photo album</span>
+
                 </button>
 
-                <!-- Need Help / Emergency SOS -->
-                <button class="btn big w-full group bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white p-6 rounded-3xl shadow-lg shadow-rose-600/20 flex flex-col items-center justify-center text-center transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" id="patientEmergencyBtn">
-                    <span class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition-transform">🚨</span>
-                    <span class="text-xl font-extrabold tracking-wide">Need Help</span>
-                    <span class="text-xs text-rose-100 font-semibold mt-1">Alert caregiver immediately</span>
+
+                <!-- EMERGENCY -->
+
+                <button
+                    class="btn big bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white shadow-lg border-4 border-white cursor-pointer"
+                    id="patientEmergencyBtn">
+
+                    <span>🚨</span>
+
+                    <span>Need Help</span>
+
+                    <span>Alert caregiver immediately</span>
+
                 </button>
 
             </div>
+
         </section>
 
-        <!-- REMIND SCREEN -->
-        <section class="screen max-w-xl mx-auto w-full text-center" id="remind" hidden>
-            <div class="flex justify-between items-center mb-4">
-                <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm" data-go="home">← Back</button>
-                <button class="btn ghost bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold px-4 py-2 rounded-2xl shadow-sm border border-amber-200 cursor-pointer text-sm" id="repeat">🔊 Repeat Prompt</button>
+
+        <!-- =================================
+             REMIND SCREEN
+        ================================== -->
+
+        <section class="screen other-screen" id="remind" hidden>
+
+            <div class="screen-topbar">
+
+                <button
+                    class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm"
+                    data-go="home">
+
+                    ← Back
+
+                </button>
+
+                <button
+                    class="btn ghost bg-amber-50 hover:bg-amber-100 text-amber-900 font-bold px-4 py-2 rounded-2xl shadow-sm border border-amber-200 cursor-pointer text-sm"
+                    id="repeat">
+
+                    🔊 Repeat Prompt
+
+                </button>
+
             </div>
-            <div class="bg-white border-2 border-stone-200 rounded-3xl shadow-sm w-full" id="remBody"></div>
+
+            <div
+                class="bg-white border-2 border-stone-200 rounded-3xl shadow-sm w-full"
+                id="remBody">
+            </div>
+
             <div class="mt-4">
-                <button class="text-xs text-stone-400 hover:text-stone-600 underline cursor-pointer" id="demoRem">⚡ Demo: show next reminder now</button>
+
+                <button
+                    class="text-xs text-stone-400 hover:text-stone-600 underline cursor-pointer"
+                    id="demoRem">
+
+                    ⚡ Demo: show next reminder now
+
+                </button>
+
             </div>
+
         </section>
 
-        <!-- PLAY MENU SCREEN -->
-        <section class="screen max-w-3xl mx-auto w-full text-center" id="play" hidden>
-            <div class="flex justify-start mb-4">
-                <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm" data-go="home">← Back</button>
+
+        <!-- =================================
+             PLAY MENU SCREEN
+        ================================== -->
+
+        <section class="screen other-screen" id="play" hidden>
+
+            <div class="screen-topbar">
+
+                <button
+                    class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm"
+                    data-go="home">
+
+                    ← Back
+
+                </button>
+
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-3xl mx-auto justify-items-center">
-                <button class="btn big sun w-full group bg-emerald-500 hover:bg-emerald-600 text-white p-6 rounded-3xl shadow-xl shadow-emerald-500/20 flex flex-col items-center justify-center transition-all transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" id="g1">
-                    <span class="text-4xl mb-2 group-hover:scale-110 transition-transform">🃏</span>
-                    <span class="text-lg font-extrabold tracking-wide">Match pairs</span>
+
+
+            <div class="game-menu-grid">
+
+                <button
+                    class="btn big sun bg-emerald-500 hover:bg-emerald-600 text-white shadow-xl border-4 border-white cursor-pointer"
+                    id="g1">
+
+                    <span>🃏</span>
+                    <span>Match pairs</span>
+
                 </button>
-                <button class="btn big w-full group bg-teal-500 hover:bg-teal-600 text-white p-6 rounded-3xl shadow-xl shadow-teal-500/20 flex flex-col items-center justify-center transition-all transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" id="g2">
-                    <span class="text-4xl mb-2 group-hover:scale-110 transition-transform">🧩</span>
-                    <span class="text-lg font-extrabold tracking-wide">Jigsaw Puzzle</span>
+
+
+                <button
+                    class="btn big bg-teal-500 hover:bg-teal-600 text-white shadow-xl border-4 border-white cursor-pointer"
+                    id="g2">
+
+                    <span>🧩</span>
+                    <span>Jigsaw Puzzle</span>
+
                 </button>
-                <button class="btn big w-full group bg-pink-500 hover:bg-pink-600 text-white p-6 rounded-3xl shadow-xl shadow-pink-500/20 flex flex-col items-center justify-center transition-all transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer" id="g3">
-                    <span class="text-4xl mb-2 group-hover:scale-110 transition-transform">👥</span>
-                    <span class="text-lg font-extrabold tracking-wide">Family Match</span>
+
+
+                <button
+                    class="btn big bg-pink-500 hover:bg-pink-600 text-white shadow-xl border-4 border-white cursor-pointer"
+                    id="g3">
+
+                    <span>👥</span>
+                    <span>Family Match</span>
+
                 </button>
+
             </div>
+
         </section>
 
-        <!-- ACTIVE GAME BOARD SCREEN -->
-        <section class="screen max-w-3xl mx-auto w-full text-center" id="game" hidden>
-            <div class="flex justify-between items-center mb-4">
-                <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm" data-go="play">← Back to games</button>
-                <span class="text-xs sm:text-sm font-extrabold text-stone-600 bg-white px-4 py-2 rounded-2xl border border-stone-200 shadow-sm" id="gMsg">Match the pictures</span>
+
+        <!-- =================================
+             ACTIVE GAME SCREEN
+        ================================== -->
+
+        <section class="screen other-screen" id="game" hidden>
+
+            <div class="screen-topbar">
+
+                <button
+                    class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm"
+                    data-go="play">
+
+                    ← Back to games
+
+                </button>
+
+                <span
+                    class="text-xs sm:text-sm font-extrabold text-stone-600 bg-white px-4 py-2 rounded-2xl border border-stone-200 shadow-sm"
+                    id="gMsg">
+
+                    Match the pictures
+
+                </span>
+
             </div>
-            <div class="bg-white border-2 border-stone-200 rounded-3xl shadow-sm w-full" id="gBoard"></div>
+
+            <div
+                class="bg-white border-2 border-stone-200 rounded-3xl shadow-sm w-full"
+                id="gBoard">
+            </div>
+
         </section>
 
-        <!-- ALBUM SCREEN -->
-        <section class="screen max-w-3xl mx-auto w-full text-center" id="album" hidden>
-            <div class="flex justify-start mb-4">
-                <button class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm" data-go="home">← Back</button>
+
+        <!-- =================================
+             ALBUM SCREEN
+        ================================== -->
+
+        <section class="screen other-screen max-w-5xl mx-auto w-full" id="album" hidden>
+
+            <div class="screen-topbar">
+
+                <button
+                    class="btn ghost bg-white hover:bg-stone-100 text-stone-800 font-bold px-4 py-2 rounded-2xl shadow-sm border border-stone-200 cursor-pointer text-sm"
+                    data-go="home">
+
+                    ← Back
+
+                </button>
+
             </div>
-            <div id="albBody" class="w-full bg-white border-2 border-stone-200 rounded-3xl shadow-sm"></div>
+
+            <div
+                id="albBody"
+                class="w-full bg-white border-2 border-stone-200 rounded-3xl shadow-sm">
+            </div>
+
         </section>
 
     </main>
 
-    <footer class="text-center text-stone-400 text-xs font-semibold py-2">
+
+    <!-- FOOTER -->
+
+    <footer class="patient-footer">
         Remind & Reconnect • Patient Module
     </footer>
 
-    <!-- Patient Scripts -->
+
+    <!-- =================================
+         EXISTING JAVASCRIPT FILES
+    ================================== -->
+
     <script src="../assets/js/store.js"></script>
     <script src="../assets/js/speech.js"></script>
     <script src="../assets/js/patient.js"></script>
     <script src="../assets/js/patient-reminders.js"></script>
     <script src="../assets/js/patient-games.js"></script>
     <script src="../assets/js/patient-album.js"></script>
+
+
+    <!-- =================================
+         EMERGENCY BUTTON FUNCTIONALITY
+    ================================== -->
+
     <script>
+
         document.addEventListener('click', e => {
+
             const sosBtn = e.target.closest('#patientEmergencyBtn');
+
             if (!sosBtn || sosBtn.dataset.triggered === 'true') return;
-            
+
             sosBtn.dataset.triggered = 'true';
+
             e.stopImmediatePropagation();
             e.preventDefault();
 
+
             if (typeof ML === 'object' && typeof ML.say === 'function') {
-                ML.say("Don't worry. We have notified your caregiver, and they are coming to help you right now.");
+
+                ML.say(
+                    "Don't worry. We have notified your caregiver, and they are coming to help you right now."
+                );
+
             }
 
+
             if (typeof ML === 'object' && typeof ML.log === 'function') {
-                ML.log({ 
-                    type: 'emergency', 
-                    ref: 'sos_alert', 
+
+                ML.log({
+                    type: 'emergency',
+                    ref: 'sos_alert',
                     status: 'triggered',
-                    note: 'Patient pressed the emergency help button from the main dashboard.' 
+                    note: 'Patient pressed the emergency help button from the main dashboard.'
                 });
+
             } else {
-                const currentState = JSON.parse(localStorage.getItem('memorylane.v1')) || { events: [] };
+
+                const currentState =
+                    JSON.parse(localStorage.getItem('memorylane.v1')) || { events: [] };
+
                 currentState.events.push({
                     type: 'emergency',
                     ref: 'sos_alert',
@@ -159,27 +370,59 @@
                     note: 'Patient pressed the emergency help button from the main dashboard.',
                     ts: Date.now()
                 });
-                localStorage.setItem('memorylane.v1', JSON.stringify(currentState));
+
+                localStorage.setItem(
+                    'memorylane.v1',
+                    JSON.stringify(currentState)
+                );
+
             }
 
+
             const alertOverlay = document.createElement('div');
-            alertOverlay.className = 'fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-6 z-50';
+
+            alertOverlay.className =
+                'fixed inset-0 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-6 z-50';
+
             alertOverlay.innerHTML = `
+
                 <div class="bg-white border-4 border-rose-200 rounded-3xl p-8 max-w-md w-full text-center shadow-2xl space-y-4">
-                    <div class="inline-block p-5 bg-rose-100 rounded-full text-5xl mb-2">🚨</div>
-                    <h3 class="text-3xl font-extrabold text-stone-900">Help is on the way</h3>
-                    <p class="text-stone-600 text-base leading-relaxed font-medium">An emergency notification has been sent to your caregiver. Please stay calm and remain where you are.</p>
-                    <button id="dismissSos" class="w-full bg-stone-900 hover:bg-stone-800 text-white font-bold py-4 rounded-2xl text-lg transition cursor-pointer mt-4 shadow-md">
+
+                    <div class="inline-block p-5 bg-rose-100 rounded-full text-5xl mb-2">
+                        🚨
+                    </div>
+
+                    <h3 class="text-3xl font-extrabold text-stone-900">
+                        Help is on the way
+                    </h3>
+
+                    <p class="text-stone-600 text-base leading-relaxed font-medium">
+                        An emergency notification has been sent to your caregiver.
+                        Please stay calm and remain where you are.
+                    </p>
+
+                    <button
+                        id="dismissSos"
+                        class="w-full bg-stone-900 hover:bg-stone-800 text-white font-bold py-4 rounded-2xl text-lg transition cursor-pointer mt-4 shadow-md">
+
                         I understand
+
                     </button>
+
                 </div>
+
             `;
+
             document.body.appendChild(alertOverlay);
-            
+
+
             document.getElementById('dismissSos').onclick = () => {
                 window.location.reload();
             };
+
         }, true);
+
     </script>
+
 </body>
 </html>

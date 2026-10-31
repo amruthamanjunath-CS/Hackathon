@@ -1,21 +1,2261 @@
-body.patient { font-size:1.6rem; text-align:center; min-height:100vh; }
-.screen { max-width:760px; margin:0 auto; padding:1.2rem; }
-.topbar { display:flex; justify-content:space-between; align-items:center; }
-.topbar .btn { font-size:1.3rem; }
-.big-grid { display:grid; gap:1.2rem; margin-top:1.5rem; }
-.big { font-size:2.2rem; padding:2rem 1rem; border-radius:28px; display:flex; flex-direction:column; align-items:center; gap:.4rem; }
-.big span { font-size:4rem; line-height:1; }
-.big.sun { background:var(--sun); color:#3a2a00; } .big.sun:hover { background:#e5a92c; }
-.msg { font-size:2rem; margin:1.2rem 0; }
-.row { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:1rem; }
-.row .btn { font-size:1.9rem; padding:1.2rem 2rem; }
-.row .yes { background:#3b9d5a; }
-.pic { width:100%; max-height:46vh; object-fit:contain; border-radius:var(--r); background:#fff; }
-.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem; }
-.tile { font-size:3.4rem; padding:1.4rem 0; background:#fff; border:3px solid var(--soft); border-radius:var(--r); cursor:pointer; }
-.tile.up { background:var(--soft); }
-.tile.faded { opacity:.25; pointer-events:none; }
-.opts { display:flex; gap:1rem; justify-content:center; }
-.opts .tile { flex:1; font-size:4.4rem; }
-.tiny { font-size:.95rem; opacity:.7; margin-top:2rem; }
-.tiny button { background:none; border:0; text-decoration:underline; cursor:pointer; color:inherit; }
+
+/* ==========================================
+   PATIENT DASHBOARD - COMPLETE STYLING
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body.patient {
+    margin: 0 !important;
+    padding: 15px 25px !important;
+    min-height: 100vh !important;
+
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+    font-size: 18px !important;
+
+    background: #faf9f6;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+body.patient header {
+    width: 100% !important;
+    max-width: 1500px !important;
+    margin: 0 auto 15px !important;
+    padding: 12px 20px !important;
+}
+
+/* ==========================================
+   MAIN PAGE
+========================================== */
+
+body.patient main {
+    width: 100% !important;
+    max-width: 1500px !important;
+
+    min-height: 75vh !important;
+
+    margin: 0 auto !important;
+    padding: 15px 20px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* ==========================================
+   HOME SCREEN
+========================================== */
+
+body.patient #home {
+    width: 100% !important;
+    max-width: 1400px !important;
+
+    min-height: 75vh !important;
+
+    margin: 0 auto !important;
+    padding: 25px 35px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    gap: 15px !important;
+    text-align: center !important;
+}
+
+/* ==========================================
+   HEADING
+========================================== */
+
+body.patient #greet {
+    width: 100% !important;
+
+    font-size: 42px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+
+    margin: 0 0 10px !important;
+    padding: 10px !important;
+}
+
+body.patient #home > p {
+    font-size: 21px !important;
+    font-weight: 500 !important;
+
+    margin: 0 0 20px !important;
+    padding: 8px !important;
+}
+
+/* ==========================================
+   FOUR BOXES - 2 X 2 SQUARE GRID
+========================================== */
+
+body.patient #patientHomeGrid {
+    width: 100% !important;
+    max-width: 1250px !important;
+
+    display: grid !important;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(240px, 1fr)) !important;
+
+    gap: 25px !important;
+
+    padding: 20px !important;
+    margin: 0 auto !important;
+
+    align-items: stretch !important;
+    justify-items: stretch !important;
+}
+
+/* ==========================================
+   INDIVIDUAL BOXES
+========================================== */
+
+body.patient #patientHomeGrid .big {
+    width: 100% !important;
+    height: 100% !important;
+
+    min-width: 0 !important;
+    min-height: 240px !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 25px 20px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+
+    text-align: center !important;
+
+    gap: 12px !important;
+
+    border-radius: 25px !important;
+    border-width: 3px !important;
+
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+    font-size: 25px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+
+    cursor: pointer !important;
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease !important;
+}
+
+/* BOX ICONS */
+
+body.patient #patientHomeGrid .big span:first-child {
+    font-size: 65px !important;
+    line-height: 1.2 !important;
+
+    margin: 0 !important;
+}
+
+/* BOX TITLES */
+
+body.patient #patientHomeGrid .big span:nth-child(2) {
+    font-size: 27px !important;
+    font-weight: 800 !important;
+
+    line-height: 1.3 !important;
+    margin: 0 !important;
+}
+
+/* BOX DESCRIPTION */
+
+body.patient #patientHomeGrid .big span:nth-child(3) {
+    font-size: 17px !important;
+    font-weight: 600 !important;
+
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+/* HOVER EFFECT */
+
+body.patient #patientHomeGrid .big:hover {
+    transform: translateY(-4px) !important;
+
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15) !important;
+}
+
+/* ==========================================
+   OTHER SCREENS
+========================================== */
+
+body.patient .screen:not(#home) {
+    width: 100% !important;
+    max-width: 1100px !important;
+
+    margin: 20px auto !important;
+    padding: 30px !important;
+
+    gap: 25px !important;
+}
+
+body.patient #gBoard,
+body.patient #remBody,
+body.patient #albBody {
+    width: 100% !important;
+
+    padding: 30px !important;
+    gap: 25px !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    text-align: center !important;
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+body.patient .btn {
+    font-family: 'Segoe UI', Arial, sans-serif !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+}
+
+body.patient .ghost {
+    font-size: 17px !important;
+    padding: 14px 22px !important;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body.patient footer {
+    width: 100% !important;
+    padding: 15px !important;
+    margin-top: 15px !important;
+
+    font-size: 14px !important;
+    text-align: center !important;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (min-width: 601px) and (max-width: 1000px) {
+
+    body.patient #home {
+        padding: 20px !important;
+    }
+
+    body.patient #patientHomeGrid {
+        gap: 18px !important;
+        grid-template-rows: repeat(2, minmax(220px, 1fr)) !important;
+    }
+
+    body.patient #patientHomeGrid .big {
+        min-height: 220px !important;
+        padding: 20px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:first-child {
+        font-size: 55px !important;
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+    body.patient {
+        padding: 8px !important;
+    }
+
+    body.patient header {
+        padding: 10px !important;
+        gap: 10px !important;
+    }
+
+    body.patient main {
+        padding: 5px !important;
+        min-height: 80vh !important;
+    }
+
+    body.patient #home {
+        padding: 12px 5px !important;
+        min-height: 80vh !important;
+        gap: 10px !important;
+    }
+
+    body.patient #greet {
+        font-size: 30px !important;
+    }
+
+    body.patient #home > p {
+        font-size: 16px !important;
+        margin-bottom: 10px !important;
+    }
+
+    body.patient #patientHomeGrid {
+        width: 100% !important;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, minmax(170px, 1fr)) !important;
+
+        gap: 12px !important;
+        padding: 5px !important;
+    }
+
+    body.patient #patientHomeGrid .big {
+        min-height: 170px !important;
+        padding: 12px 5px !important;
+
+        gap: 9px !important;
+        border-radius: 18px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:first-child {
+        font-size: 38px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:nth-child(2) {
+        font-size: 17px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:nth-child(3) {
+        font-size: 11px !important;
+    }
+
+    body.patient .screen:not(#home) {
+        padding: 15px !important;
+    }
+}
+
+/* =================================
+   PATIENT - PLAY / GAME SECTION
+================================= */
+
+/* Play section container */
+#play {
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+    text-align: center;
+}
+
+/* Three game cards layout */
+#play .game-menu-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 28px !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 25px auto !important;
+    padding: 15px !important;
+    align-items: stretch !important;
+}
+
+/* Individual game cards */
+#play .game-menu-grid .big {
+    width: 100% !important;
+    min-height: 240px !important;
+    padding: 30px 20px !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    text-align: center !important;
+    border-radius: 25px !important;
+    box-sizing: border-box !important;
+}
+
+/* Game card text */
+#play .game-menu-grid .big span {
+    line-height: 1.4;
+}
+
+/* Active game screen */
+#game {
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+}
+
+/* Back button and game message */
+#game > div:first-child {
+    width: 100%;
+    margin-bottom: 25px !important;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Game board outer container */
+#gBoard {
+    width: 100% !important;
+    min-height: 300px;
+    padding: 35px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+    border-radius: 25px !important;
+}
+
+/* Tablet and mobile */
+@media (max-width: 800px) {
+    #play .game-menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+        padding: 10px !important;
+    }
+
+    #play .game-menu-grid .big {
+        min-height: 200px !important;
+        padding: 22px 15px !important;
+    }
+
+    #game,
+    #play {
+        padding: 12px !important;
+    }
+
+    #gBoard {
+        padding: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #play .game-menu-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    #play .game-menu-grid .big {
+        min-height: 170px !important;
+    }
+}
+
+/* =================================
+   GAME CARDS - ICONS AND TITLES
+================================= */
+
+/* Game illustrations */
+#play .game-menu-grid .big > span:first-child {
+    font-size: 76px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px !important;
+    display: block;
+}
+
+/* Game names */
+#play .game-menu-grid .big > span:nth-child(2) {
+    font-family: "Trebuchet MS", Arial, sans-serif !important;
+    font-size: 30px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.3px !important;
+    line-height: 1.3 !important;
+    text-align: center;
+    color: white;
+}
+
+/* Better spacing inside each card */
+#play .game-menu-grid .big {
+    gap: 12px !important;
+}
+
+/* Tablet */
+@media (max-width: 800px) {
+    #play .game-menu-grid .big > span:first-child {
+        font-size: 65px !important;
+    }
+
+    #play .game-menu-grid .big > span:nth-child(2) {
+        font-size: 26px !important;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    #play .game-menu-grid .big > span:first-child {
+        font-size: 58px !important;
+    }
+
+    #play .game-menu-grid .big > span:nth-child(2) {
+        font-size: 24px !important;
+    }
+}
+
+/* ==========================================
+   OPEN GAMES - COMMON DESIGN
+========================================== */
+
+#game {
+    width: 100% !important;
+    max-width: 1250px !important;
+    margin: 0 auto !important;
+    padding: 24px !important;
+}
+
+#gMsg {
+    font-size: 25px !important;
+    font-weight: 700 !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin: 15px auto 28px !important;
+    padding: 18px 22px !important;
+    border-radius: 18px;
+    max-width: 1050px;
+}
+
+#gBoard {
+    width: 100% !important;
+    max-width: 1150px !important;
+    margin: 0 auto !important;
+    padding: 35px !important;
+    border-radius: 26px !important;
+    box-sizing: border-box !important;
+}
+
+/* ==========================================
+   MATCH PAIRS
+========================================== */
+
+.pairs-game {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.pairs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.pairs-tile {
+    width: 100%;
+    min-height: 150px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px !important;
+    border-radius: 24px !important;
+    border: 3px solid #e7c98d !important;
+    background: #fff0c9 !important;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.09);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pairs-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.13);
+}
+
+.pairs-tile.up {
+    background: white !important;
+    border-color: #5ba99a !important;
+}
+
+/* ==========================================
+   JIGSAW PUZZLE
+========================================== */
+
+.jigsaw-game {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+    padding: 10px;
+}
+
+.jigsaw-section {
+    width: 100%;
+    padding: 28px;
+    border-radius: 22px;
+    background: #f8faf9;
+    border: 2px solid #e4eeea;
+}
+
+.game-subheading {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    color: #294b45 !important;
+    text-align: center;
+    margin: 0 0 10px !important;
+    line-height: 1.4;
+}
+
+.game-hint {
+    font-size: 18px !important;
+    font-weight: 600;
+    color: #64746f;
+    text-align: center;
+    margin: 0 0 24px !important;
+    line-height: 1.5;
+}
+
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.puzzle-slot,
+.puzzle-piece {
+    min-height: 125px;
+    width: 100%;
+    border-radius: 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 58px !important;
+    box-sizing: border-box;
+}
+
+.puzzle-slot {
+    background: #edf2ef;
+    border: 3px dashed #aabbb4;
+    cursor: pointer;
+}
+
+.puzzle-slot > span {
+    font-size: 24px !important;
+    font-weight: 800;
+    color: #71847c;
+}
+
+.puzzle-slot .placed-icon {
+    font-size: 58px !important;
+}
+
+.puzzle-piece {
+    background: white;
+    border: 3px solid #d8e5df;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.puzzle-piece:hover {
+    transform: translateY(-3px);
+    background: #e8f7f2;
+}
+
+.puzzle-piece.ring-4 {
+    border-color: #0d9488 !important;
+    background: #e8f7f2 !important;
+}
+
+.puzzle-slot.filled {
+    background: #e4f7e9 !important;
+    border: 3px solid #55a875 !important;
+}
+
+.puzzle-slot.wrong-slot {
+    background: #fff3df !important;
+    border-color: #e8a34c !important;
+}
+
+/* ==========================================
+   FAMILY MATCH
+========================================== */
+
+.family-game {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px;
+    align-items: start;
+    padding: 10px;
+}
+
+.family-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 25px;
+    background: #f8faf9;
+    border: 2px solid #e4eeea;
+    border-radius: 22px;
+}
+
+.family-column .game-subheading {
+    margin-bottom: 0 !important;
+}
+
+.photo-btn {
+    width: 100%;
+    min-height: 125px;
+    padding: 12px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 3px solid #dce8e2;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.photo-btn:hover {
+    transform: translateY(-2px);
+    border-color: #0d9488;
+}
+
+.family-photo {
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
+    border-radius: 18px !important;
+    pointer-events: none;
+}
+
+.name-btn {
+    width: 100%;
+    min-height: 125px;
+    padding: 20px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    background: white;
+    border: 3px solid #dce8e2;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.name-btn:hover {
+    transform: translateY(-2px);
+    border-color: #0d9488;
+}
+
+.family-name {
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    color: #263f38 !important;
+    line-height: 1.3;
+}
+
+.family-relation {
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    color: #0f887b !important;
+    line-height: 1.4;
+}
+
+.photo-btn.bg-emerald-50,
+.name-btn.bg-emerald-50 {
+    background: #e4f7e9 !important;
+    border-color: #55a875 !important;
+}
+
+.photo-btn.wrong-match,
+.name-btn.wrong-match {
+    background: #fff3df !important;
+    border-color: #e8a34c !important;
+}
+
+/* ==========================================
+   GAME COMPLETION SCREEN
+========================================== */
+
+.game-complete {
+    text-align: center;
+    padding: 35px 20px;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.complete-icon {
+    font-size: 75px;
+    margin: 0 0 18px;
+}
+
+.game-complete h2 {
+    font-size: 30px;
+    font-weight: 800;
+    color: #294b45;
+    margin-bottom: 15px;
+}
+
+.game-complete > p:not(.complete-icon) {
+    font-size: 19px;
+    color: #64746f;
+    margin-bottom: 28px;
+}
+
+.complete-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.complete-actions button {
+    min-width: 180px;
+    padding: 17px 25px !important;
+    border-radius: 16px !important;
+    font-size: 19px !important;
+    font-weight: 800 !important;
+    cursor: pointer;
+}
+
+.complete-play {
+    background: #0d9488 !important;
+    color: white !important;
+}
+
+.complete-home {
+    background: #e7e5e4 !important;
+    color: #292524 !important;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 800px) {
+    #game {
+        padding: 15px !important;
+    }
+
+    #gBoard {
+        padding: 22px !important;
+    }
+
+    .pairs-grid {
+        gap: 15px;
+    }
+
+    .pairs-tile {
+        min-height: 110px;
+        font-size: 50px !important;
+    }
+
+    .puzzle-grid {
+        gap: 12px;
+    }
+
+    .puzzle-slot,
+    .puzzle-piece {
+        min-height: 100px;
+        font-size: 45px !important;
+    }
+
+    .family-game {
+        gap: 18px;
+    }
+
+    .family-column {
+        padding: 16px;
+    }
+
+    .family-photo {
+        width: 80px !important;
+        height: 80px !important;
+    }
+
+    .family-name {
+        font-size: 21px !important;
+    }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 520px) {
+    #gMsg {
+        font-size: 19px !important;
+    }
+
+    #gBoard {
+        padding: 12px !important;
+    }
+
+    .pairs-game {
+        padding: 3px;
+    }
+
+    .pairs-grid {
+        gap: 9px;
+    }
+
+    .pairs-tile {
+        min-height: 65px;
+        font-size: 34px !important;
+        border-radius: 14px !important;
+    }
+
+    .jigsaw-game {
+        gap: 22px;
+        padding: 2px;
+    }
+
+    .jigsaw-section {
+        padding: 14px;
+    }
+
+    .game-subheading {
+        font-size: 20px !important;
+    }
+
+    .game-hint {
+        font-size: 15px !important;
+    }
+
+    .puzzle-grid {
+        gap: 8px;
+    }
+
+    .puzzle-slot,
+    .puzzle-piece {
+        min-height: 75px;
+        font-size: 35px !important;
+        border-radius: 13px !important;
+    }
+
+    .puzzle-slot > span {
+        font-size: 17px !important;
+    }
+
+    .puzzle-slot .placed-icon {
+        font-size: 38px !important;
+    }
+
+    .family-game {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 2px;
+    }
+
+    .family-column {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .photo-btn,
+    .name-btn {
+        min-height: 95px;
+    }
+
+    .family-photo {
+        width: 75px !important;
+        height: 75px !important;
+    }
+
+    .family-name {
+        font-size: 21px !important;
+    }
+
+    .family-relation {
+        font-size: 16px !important;
+    }
+
+    .game-complete h2 {
+        font-size: 23px;
+    }
+
+    .complete-actions button {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   FAMILY PHOTO ALBUM
+========================================== */
+
+#album {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+#album > div:first-child {
+    margin-bottom: 12px;
+}
+
+#albBody {
+    width: 100%;
+    padding: 0 !important;
+    background: #fffdf8;
+    border: 2px solid #f0e5d5;
+    border-radius: 26px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Main album page */
+
+.album-page {
+    width: 100%;
+    padding: 20px 26px 14px;
+    box-sizing: border-box;
+    background: linear-gradient(145deg, #fffdf8, #fff8ee);
+}
+
+/* Heading */
+
+.album-heading {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.album-eyebrow {
+    display: inline-block;
+    color: #b77938;
+    background: #fff0d9;
+    border: 1px solid #f2d7ad;
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+}
+
+.album-heading h2 {
+    color: #49372d;
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -0.7px;
+}
+
+.album-heading > p {
+    color: #8b7768;
+    font-size: 14px;
+    margin: 5px 0 9px;
+}
+
+.album-count {
+    display: inline-block;
+    background: #e5f4ee;
+    color: #26745e;
+    padding: 6px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* Photo grid */
+
+.album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+/* Individual photo cards */
+
+.album-card {
+    min-width: 0;
+    background: white;
+    border: 1px solid #eadfce;
+    border-radius: 19px;
+    padding: 10px;
+    box-shadow: 0 5px 15px rgba(104, 75, 48, 0.09);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+}
+
+.album-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 20px rgba(104, 75, 48, 0.14);
+}
+
+/* Photo */
+
+.album-photo-wrap {
+    position: relative;
+    width: 100%;
+    height: 145px;
+    overflow: hidden;
+    border-radius: 13px;
+    background: #f4e9da;
+}
+
+.album-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.album-card:hover .album-photo {
+    transform: scale(1.04);
+}
+
+.album-number {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.94);
+    color: #8b5e36;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 900;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* Card text */
+
+.album-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    padding: 11px 5px 3px;
+}
+
+.album-label {
+    color: #b77938;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+}
+
+.question-text {
+    color: #49372d;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 800;
+    margin: 7px 0 10px;
+}
+
+/* Remember button */
+
+.reveal-btn {
+    width: 100%;
+    margin-top: auto;
+    padding: 10px 7px;
+    border: none;
+    border-radius: 11px;
+    background: #287d69;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.reveal-btn:hover {
+    background: #1d6554;
+}
+
+.reveal-btn.revealed {
+    background: #f0e9df;
+    color: #665345;
+}
+
+/* Revealed memory */
+
+.reveal-section {
+    width: 100%;
+    margin: 2px 0 11px;
+    text-align: left;
+}
+
+.album-caption {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 10px;
+    background: #fff5e6;
+    border: 1px solid #f3dfbd;
+    border-radius: 11px;
+}
+
+.album-caption > span {
+    font-size: 17px;
+}
+
+.caption-text {
+    color: #705b49;
+    font-size: 12px;
+    line-height: 1.45;
+    font-weight: 600;
+    margin: 0;
+}
+
+.album-audio {
+    width: 100%;
+    height: 35px;
+    margin-top: 9px;
+}
+
+/* Album footer */
+
+.album-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    margin-top: 15px;
+    color: #a58a76;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.album-footer p {
+    margin: 0;
+}
+
+/* Empty album */
+
+.album-empty {
+    padding: 45px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+.album-empty h2 {
+    color: #49372d;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.album-empty p {
+    color: #665345;
+    font-weight: 700;
+}
+
+.album-empty span {
+    color: #9a8777;
+    font-size: 13px;
+}
+
+/* Tablet */
+
+@media (max-width: 800px) {
+    .album-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .album-photo-wrap {
+        height: 135px;
+    }
+
+    .album-page {
+        padding: 18px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    .album-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .album-page {
+        padding: 14px 10px;
+    }
+
+    .album-card {
+        padding: 7px;
+    }
+
+    .album-photo-wrap {
+        height: 105px;
+    }
+
+    .question-text {
+        font-size: 13px;
+    }
+
+    .reveal-btn {
+        font-size: 10px;
+        padding: 9px 4px;
+    }
+
+    .album-heading h2 {
+        font-size: 23px;
+    }
+}
+/* MEMORY ALBUM COLLECTION */
+
+.album-page {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+.album-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.album-eyebrow {
+  color: #0f766e;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.album-heading h2 {
+  color: #292524;
+  font-size: 32px;
+  font-weight: 900;
+  margin: 10px 0;
+}
+
+.album-heading p {
+  color: #78716c;
+  font-size: 16px;
+}
+
+.album-count {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 9px 18px;
+  background: #ccfbf1;
+  color: #115e59;
+  border-radius: 30px;
+  font-weight: 800;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.memory-album-card {
+  padding: 0;
+  overflow: hidden;
+  text-align: left;
+  background: white;
+  border: 2px solid #e7e5e4;
+  border-radius: 22px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.memory-album-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.10);
+}
+
+.memory-album-cover {
+  height: 190px;
+  position: relative;
+  overflow: hidden;
+}
+
+.memory-album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memory-photo-count {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.memory-album-info {
+  padding: 18px;
+}
+
+.memory-album-info h3 {
+  font-size: 21px;
+  font-weight: 900;
+  color: #292524;
+  margin-bottom: 5px;
+}
+
+.memory-album-info p {
+  color: #78716c;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.memory-album-info span {
+  color: #0f766e;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+/* PHOTOS INSIDE AN ALBUM */
+
+.album-back-btn {
+  display: inline-block;
+  background: #ccfbf1;
+  color: #115e59;
+  padding: 12px 20px;
+  border-radius: 13px;
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+
+.memory-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.memory-photo-card {
+  position: relative;
+  padding: 0;
+  height: 210px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 2px solid #e7e5e4;
+  background: #f5f5f4;
+  cursor: pointer;
+}
+
+.memory-photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+
+.memory-photo-card:hover img {
+  transform: scale(1.05);
+}
+
+.memory-photo-card span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  background: linear-gradient(transparent, rgba(0,0,0,0.75));
+}
+
+/* INDIVIDUAL PHOTO VIEW */
+
+.photo-detail {
+  max-width: 850px;
+  margin: 0 auto;
+  background: white;
+  border: 2px solid #e7e5e4;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.photo-detail-image {
+  width: 100%;
+  height: 390px;
+  background: #f5f5f4;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.photo-detail-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.photo-detail-content {
+  text-align: center;
+  padding: 25px 10px 5px;
+}
+
+.photo-detail-content h2 {
+  font-size: 26px;
+  font-weight: 900;
+  color: #292524;
+  margin: 12px 0 20px;
+}
+
+.album-caption {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 18px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 16px;
+  color: #57534e;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.album-voice-note {
+  margin-top: 20px;
+  padding: 18px;
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: 16px;
+  text-align: left;
+}
+
+.album-voice-note p {
+  font-weight: 800;
+  color: #115e59;
+  margin-bottom: 12px;
+}
+
+.album-voice-note audio {
+  width: 100%;
+}
+
+.photo-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.photo-navigation button {
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: #0f766e;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.photo-navigation button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.photo-navigation span {
+  font-weight: 800;
+  color: #57534e;
+}
+
+.album-footer {
+  text-align: center;
+  color: #a8a29e;
+  font-weight: 700;
+  margin-top: 35px;
+}
+
+.album-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.album-empty .empty-icon {
+  font-size: 60px;
+  margin-bottom: 15px;
+}
+
+.album-empty h2 {
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.album-empty p {
+  margin: 10px 0;
+  color: #57534e;
+}
+
+.album-empty span {
+  color: #a8a29e;
+}
+
+/* TABLET AND MOBILE */
+
+@media (max-width: 850px) {
+  .album-grid,
+  .memory-photo-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .memory-album-cover {
+    height: 160px;
+  }
+}
+
+@media (max-width: 550px) {
+  .album-page {
+    padding: 16px;
+  }
+
+  .album-grid,
+  .memory-photo-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .album-heading h2 {
+    font-size: 25px;
+  }
+
+  .memory-album-cover {
+    height: 210px;
+  }
+
+  .photo-detail {
+    padding: 14px;
+  }
+
+  .photo-detail-image {
+    height: 260px;
+  }
+
+  .photo-detail-content h2 {
+    font-size: 21px;
+  }
+
+  .photo-navigation button {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
+
+/* ===== Family Album Layout ===== */
+
+#album {
+    max-width: 1100px !important;
+    width: 100%;
+}
+
+#albBody {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.album-page {
+    width: 100%;
+    padding: 35px;
+    box-sizing: border-box;
+}
+
+.album-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.album-eyebrow {
+    display: inline-block;
+    color: #087f75;
+    background: #fff1dc;
+    border: 1px solid #f5d5a8;
+    border-radius: 30px;
+    padding: 9px 18px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.album-heading h2 {
+    font-size: clamp(25px, 4vw, 34px);
+    font-weight: 900;
+    color: #292524;
+    margin-bottom: 10px;
+}
+
+.album-heading p {
+    color: #78716c;
+    font-size: 16px;
+}
+
+.album-count {
+    display: inline-block;
+    background: #ccfbf1;
+    color: #115e59;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 800;
+    margin-top: 18px;
+}
+
+.memory-album-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    width: 100%;
+    align-items: stretch;
+}
+
+.memory-album-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid #e7ded5;
+    border-radius: 22px;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 0;
+}
+
+.memory-album-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.09);
+}
+
+.memory-album-cover {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    background: #fce8dc;
+    overflow: hidden;
+}
+
+.memory-album-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memory-photo-count {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    background: rgba(35, 35, 35, 0.8);
+    color: white;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.memory-album-info {
+    padding: 17px;
+    text-align: center;
+}
+
+.memory-album-info h3 {
+    font-size: 19px;
+    font-weight: 800;
+    margin: 0 0 7px;
+    color: #292524;
+}
+
+.memory-album-info p {
+    font-size: 14px;
+    color: #78716c;
+    margin: 0 0 15px;
+}
+
+.memory-album-info span {
+    color: #087f75;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.album-back-btn {
+    display: block;
+    margin: 0 auto 25px;
+    padding: 11px 20px;
+    border: 1px solid #e7ded5;
+    border-radius: 13px;
+    background: white;
+    color: #292524;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.memory-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.memory-photo-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e5ded8;
+    border-radius: 20px;
+    padding: 0;
+    height: 225px;
+    background: #f5e7dd;
+    cursor: pointer;
+}
+
+.memory-photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+}
+
+.memory-photo-card:hover img {
+    transform: scale(1.04);
+}
+
+.memory-photo-card span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 13px;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+}
+
+.photo-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 28px;
+    align-items: center;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.photo-detail-image img {
+    display: block;
+    width: 100%;
+    max-height: 480px;
+    object-fit: contain;
+    border-radius: 20px;
+    background: #f5eee7;
+}
+
+.photo-detail-content {
+    min-width: 0;
+}
+
+.album-caption {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.album-voice-note {
+    margin-top: 20px;
+}
+
+.album-voice-note audio {
+    width: 100%;
+    max-width: 100%;
+}
+
+.photo-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.photo-navigation button {
+    padding: 11px 16px;
+    border: 1px solid #e7ded5;
+    border-radius: 13px;
+    background: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.photo-navigation button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.album-footer {
+    margin-top: 35px;
+    color: #a8a29e;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+    .album-page {
+        padding: 20px 14px;
+    }
+
+    .memory-album-grid,
+    .memory-photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .memory-album-cover {
+        height: 145px;
+    }
+
+    .memory-photo-card {
+        height: 160px;
+    }
+
+    .memory-album-info {
+        padding: 12px;
+    }
+
+    .memory-album-info h3 {
+        font-size: 16px;
+    }
+
+    .photo-detail {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+/* =========================================
+   MEMORY LANE - CREATIVE PATIENT UI
+   ========================================= */
+
+/* Page background */
+body.patient {
+    background: #f4f7f3 !important;
+    color: #263c36;
+    padding: 18px 30px !important;
+    font-family: inherit;
+}
+
+/* Header */
+body.patient .patient-header {
+    max-width: 1500px;
+    margin: 0 auto 24px;
+    padding: 18px 26px !important;
+    background: #ffffff;
+    border: 1px solid #e5ebe5;
+    border-radius: 22px;
+    box-shadow: 0 6px 22px rgba(37, 65, 52, 0.07);
+}
+
+body.patient .patient-header > div {
+    font-size: 15px !important;
+    padding: 12px 20px !important;
+    border-radius: 14px !important;
+    background: #e4f5e9 !important;
+    color: #23734b !important;
+}
+
+/* Exit button */
+body.patient .patient-header a {
+    padding: 12px 19px !important;
+    border-radius: 13px;
+    font-weight: 700;
+    transition: 0.25s ease;
+}
+
+body.patient .patient-header a:hover {
+    transform: translateY(-2px);
+}
+
+/* Main content */
+body.patient .patient-main {
+    max-width: 1500px;
+    min-height: 75vh;
+    padding: 20px 25px !important;
+}
+
+/* Home screen */
+body.patient #home {
+    max-width: 1300px;
+    width: 100%;
+    min-height: 72vh;
+    gap: 18px;
+    padding: 25px 10px;
+}
+
+/* Main heading */
+body.patient #greet {
+    font-size: clamp(34px, 4vw, 48px) !important;
+    font-weight: 850;
+    color: #194b3d;
+    letter-spacing: -1.5px;
+    margin-bottom: 4px;
+}
+
+/* Subtitle */
+body.patient #home > p {
+    font-size: 20px !important;
+    color: #718079;
+    margin-bottom: 16px;
+}
+
+/* Home button grid */
+body.patient #patientHomeGrid {
+    width: 100%;
+    max-width: 1180px;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(2, minmax(230px, 1fr));
+    gap: 25px !important;
+    padding: 12px;
+}
+
+/* All four main cards */
+body.patient #patientHomeGrid .big {
+    position: relative;
+    overflow: hidden;
+    min-height: 230px !important;
+    padding: 30px 24px !important;
+    border: 3px solid rgba(255,255,255,0.85) !important;
+    border-radius: 28px !important;
+    box-shadow: 0 12px 25px rgba(31, 57, 48, 0.13);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px !important;
+    color: white !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Decorative circles */
+body.patient #patientHomeGrid .big::before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.13);
+    top: -75px;
+    right: -45px;
+}
+
+body.patient #patientHomeGrid .big::after {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+    bottom: -55px;
+    left: -30px;
+}
+
+/* Card colours */
+body.patient #patientHomeGrid button[data-go="remind"] {
+    background: #159b78 !important;
+}
+
+body.patient #patientHomeGrid button[data-go="play"] {
+    background: #3479c7 !important;
+}
+
+body.patient #patientHomeGrid button[data-go="album"] {
+    background: #e49a32 !important;
+}
+
+body.patient #patientHomeGrid button#patientEmergencyBtn {
+    background: #dc5968 !important;
+}
+
+/* Keep card content above decorations */
+body.patient #patientHomeGrid .big span {
+    position: relative;
+    z-index: 1;
+    color: white !important;
+}
+
+/* Card icons */
+body.patient #patientHomeGrid .big span:first-child {
+    font-size: 62px !important;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.12));
+}
+
+/* Card titles */
+body.patient #patientHomeGrid .big span:nth-child(2) {
+    font-size: 29px !important;
+    font-weight: 850;
+    letter-spacing: 0.3px;
+}
+
+/* Card descriptions */
+body.patient #patientHomeGrid .big span:nth-child(3) {
+    font-size: 16px !important;
+    font-weight: 500;
+    opacity: 0.95;
+}
+
+/* Hover effect */
+body.patient #patientHomeGrid .big:hover {
+    transform: translateY(-7px) scale(1.015);
+    box-shadow: 0 19px 32px rgba(31, 57, 48, 0.20);
+}
+
+/* Click effect */
+body.patient #patientHomeGrid .big:active {
+    transform: scale(0.98);
+}
+
+/* Keyboard accessibility */
+body.patient #patientHomeGrid .big:focus-visible {
+    outline: 4px solid #253f35;
+    outline-offset: 5px;
+}
+
+/* Other screen top bars */
+body.patient .screen-topbar {
+    gap: 15px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+body.patient .screen-topbar .btn {
+    border-radius: 14px !important;
+    padding: 13px 21px !important;
+    font-size: 16px !important;
+    font-weight: 750;
+    transition: 0.2s ease;
+}
+
+body.patient .screen-topbar .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Main content panels */
+body.patient #remBody,
+body.patient #gBoard,
+body.patient #albBody {
+    border-radius: 24px !important;
+    border-color: #e3eae3 !important;
+    box-shadow: 0 8px 24px rgba(35, 62, 48, 0.07);
+}
+
+/* Footer */
+body.patient .patient-footer {
+    padding: 22px 10px;
+    color: #7b8981;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
+@media (max-width: 850px) {
+    body.patient {
+        padding: 12px 16px !important;
+    }
+
+    body.patient .patient-main {
+        padding: 15px 10px !important;
+    }
+
+    body.patient #patientHomeGrid {
+        gap: 17px !important;
+    }
+
+    body.patient #patientHomeGrid .big {
+        min-height: 200px !important;
+    }
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+@media (max-width: 550px) {
+    body.patient {
+        padding: 9px !important;
+    }
+
+    body.patient .patient-header {
+        padding: 12px !important;
+        border-radius: 16px;
+    }
+
+    body.patient .patient-main {
+        padding: 10px 3px !important;
+    }
+
+    body.patient #home {
+        min-height: auto;
+        padding: 25px 4px;
+    }
+
+    body.patient #greet {
+        font-size: 30px !important;
+        text-align: center;
+    }
+
+    body.patient #home > p {
+        font-size: 16px !important;
+        text-align: center;
+    }
+
+    body.patient #patientHomeGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        grid-template-rows: repeat(2, minmax(155px, 1fr));
+        gap: 12px !important;
+        padding: 4px;
+    }
+
+    body.patient #patientHomeGrid .big {
+        min-height: 155px !important;
+        padding: 16px 8px !important;
+        border-radius: 19px !important;
+        gap: 8px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:first-child {
+        font-size: 40px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:nth-child(2) {
+        font-size: 19px !important;
+    }
+
+    body.patient #patientHomeGrid .big span:nth-child(3) {
+        font-size: 11px !important;
+    }
+}

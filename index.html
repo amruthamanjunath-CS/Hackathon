@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,71 +7,146 @@
     <title>Memory Lane — Home</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="assets/css/base.css">
-    
 </head>
-<body class="bg-stone-50 min-h-screen flex flex-col justify-between p-4 sm:p-6 font-sans">
+
+<body class="min-h-screen bg-stone-50 font-sans text-stone-900 flex flex-col px-4 sm:px-6 lg:px-8">
 
     <!-- Header -->
-    <header class="max-w-5xl mx-auto w-full flex justify-between items-center py-2">
+    <header class="w-full max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 py-5 sm:py-6">
+
+        <!-- Memory Lane Logo -->
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-stone-900 text-white flex items-center justify-center shadow-md font-bold text-lg">
-                🧠
+
+            <!-- Custom Brain Logo -->
+            <div class="brand-mark w-11 h-11 rounded-2xl flex items-center justify-center shadow-md flex-shrink-0">
+
+                <svg viewBox="0 0 48 48" width="30" height="30"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <!-- Brain Outline -->
+                    <path d="M24 8
+                             C19 3 11 7 12 14
+                             C5 15 5 24 10 27
+                             C7 34 14 41 20 37
+                             L24 34
+                             M24 8
+                             C29 3 37 7 36 14
+                             C43 15 43 24 38 27
+                             C41 34 34 41 28 37
+                             L24 34
+                             M24 8 V34"
+                          stroke="#ffffff"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"/>
+
+                    <!-- Heart -->
+                    <path d="M24 29
+                             C21 26 16 23 18 20
+                             C20 17 23 20 24 22
+                             C26 18 30 18 31 21
+                             C32 24 27 27 24 29Z"
+                          fill="#fbbf24"/>
+
+                    <!-- Leaf -->
+                    <path d="M31 39 C32 32 39 29 43 30
+                             C42 36 38 41 31 39Z"
+                          fill="#5eead4"/>
+                </svg>
+
             </div>
-            <div>
-                <h2 class="font-extrabold text-stone-900 text-base leading-tight">Memory Lane</h2>
-                <p class="text-[11px] text-stone-500 font-semibold">Remind & Reconnect</p>
+
+            <!-- Brand Name and Tagline -->
+            <div class="brand-container">
+
+                <h2 class="brand-title">
+                    Memory <span>Lane</span>
+                </h2>
+
+                <p class="brand-tagline">
+                    Remind &amp; Reconnect
+                </p>
+
             </div>
         </div>
-        <div class="text-xs sm:text-sm font-extrabold text-teal-800 bg-teal-50 px-3.5 py-2 rounded-2xl border border-teal-200">
-            🌿 Dementia Care Companion
-        </div>
+
+    <!-- Dementia Care Badge -->
+<div class="text-xs sm:text-sm font-extrabold text-teal-800 bg-teal-50 px-4 py-2.5 rounded-2xl border border-teal-200 text-center">
+    🌿 Dementia Care Companion
+</div>    
+
     </header>
 
-    <!-- Main Content Area -->
-    <main class="max-w-5xl w-full mx-auto flex-1 flex flex-col items-center justify-center py-6">
+    <!-- Main Content -->
+    <main class="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-center items-center py-10 sm:py-14">
 
-        <div class="text-center max-w-2xl mx-auto mb-10 space-y-3">
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-900 tracking-tight">
-                Memories connect us. <span class="text-teal-600">Let's keep them close.</span>
+        <!-- Hero Section -->
+        <section class="w-full max-w-3xl mx-auto text-center mb-10 sm:mb-14 px-1">
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 tracking-tight leading-tight">
+                Memories connect us.
+                <span class="text-teal-600">Let's keep them close.</span>
             </h1>
-            <p class="text-stone-500 text-sm sm:text-base font-medium leading-relaxed">
+
+            <p class="max-w-2xl mx-auto mt-5 text-stone-500 text-sm sm:text-base font-medium leading-7">
                 A compassionate platform bridging daily routines, family photo memories, and caregiver insights with clear, engaging design.
             </p>
-        </div>
 
-        <!-- Portal Navigation Grid with clean spacing -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl mx-auto mt-4">
-            
-            <!-- Patient Portal Card -->
-            <a href="patient/index.html" class="group bg-gradient-to-br from-teal-500 to-teal-600 hover:from-teal-400 hover:to-teal-500 text-white p-6 sm:p-7 rounded-3xl shadow-xl shadow-teal-500/20 flex flex-col items-start justify-between transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer w-full">
-                <div class="w-full flex justify-between items-start mb-4">
-                    <span class="text-4xl sm:text-5xl p-3 bg-white/15 rounded-2xl group-hover:scale-110 transition-transform">🌻</span>
-                    <span class="text-xs font-extrabold bg-white/20 px-3 py-1.5 rounded-xl uppercase tracking-wider">Patient Portal</span>
+        </section>
+
+        <!-- Portal Cards -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-7 w-full max-w-4xl mx-auto">
+
+            <!-- Patient Portal -->
+            <a href="patient/index.html"
+               class="group min-h-[220px] w-full rounded-3xl border-4 border-white bg-gradient-to-br from-teal-500 to-teal-600 p-6 sm:p-8 text-white shadow-xl shadow-teal-500/20 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:from-teal-400 hover:to-teal-500 active:scale-[0.99]">
+
+                <div class="flex w-full items-start justify-between gap-3 mb-8">
+                    <span class="rounded-2xl bg-white/15 p-3 text-4xl sm:text-5xl transition-transform duration-300 group-hover:scale-110">🌻</span>
+
+                    <span class="rounded-xl bg-white/20 px-3 py-1.5 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-right">
+                        Patient Portal
+                    </span>
                 </div>
-                <div class="space-y-1 text-left w-full">
+
+                <div class="w-full space-y-2">
                     <h3 class="text-2xl font-extrabold tracking-wide">Patient Screen</h3>
-                    <p class="text-xs sm:text-sm text-teal-100 font-medium leading-relaxed">Spoken reminders, games & memory album</p>
+
+                    <p class="text-sm text-teal-100 font-medium leading-relaxed">
+                        Spoken reminders, games &amp; memory album
+                    </p>
                 </div>
+
             </a>
 
-            <!-- Caregiver Dashboard Card -->
-            <a href="caregiver/index.html" class="group bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white p-6 sm:p-7 rounded-3xl shadow-xl shadow-rose-600/20 flex flex-col items-start justify-between transition-all duration-300 transform hover:-translate-y-1 active:scale-95 border-4 border-white cursor-pointer w-full">
-                <div class="w-full flex justify-between items-start mb-4">
-                    <span class="text-4xl sm:text-5xl p-3 bg-white/15 rounded-2xl group-hover:scale-110 transition-transform">📊</span>
-                    <span class="text-xs font-extrabold bg-white/20 px-3 py-1.5 rounded-xl uppercase tracking-wider">Caregiver Portal</span>
+            <!-- Caregiver Portal -->
+            <a href="caregiver/index.html"
+               class="group min-h-[220px] w-full rounded-3xl border-4 border-white bg-gradient-to-br from-rose-600 to-rose-700 p-6 sm:p-8 text-white shadow-xl shadow-rose-600/20 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:from-rose-500 hover:to-rose-600 active:scale-[0.99]">
+
+                <div class="flex w-full items-start justify-between gap-3 mb-8">
+                    <span class="rounded-2xl bg-white/15 p-3 text-4xl sm:text-5xl transition-transform duration-300 group-hover:scale-110">📊</span>
+
+                    <span class="rounded-xl bg-white/20 px-3 py-1.5 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-right">
+                        Caregiver Portal
+                    </span>
                 </div>
-                <div class="space-y-1 text-left w-full">
+
+                <div class="w-full space-y-2">
                     <h3 class="text-2xl font-extrabold tracking-wide">Dashboard</h3>
-                    <p class="text-xs sm:text-sm text-rose-100 font-medium leading-relaxed">Engagement tracking, reminders & SOS logs</p>
+
+                    <p class="text-sm text-rose-100 font-medium leading-relaxed">
+                        Engagement tracking, reminders &amp; SOS logs
+                    </p>
                 </div>
+
             </a>
 
-        </div>
+        </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="text-center text-stone-400 text-xs font-semibold py-3">
+    <footer class="w-full max-w-6xl mx-auto text-center text-stone-400 text-xs font-semibold py-5">
         Memory Lane · Built with vibrant empathy for elder care
     </footer>
 

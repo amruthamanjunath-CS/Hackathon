@@ -1,98 +1,335 @@
-// Patient memory album: allows patients to gently look through family photos, answer questions, and hear voice notes.
+// Patient Family Photo Albums
 (function () {
-  window.ML = window.ML || {}; 
+  window.ML = window.ML || {};
   ML.enter = ML.enter || {};
-  const $ = s => document.querySelector(s);
+
+  const $ = selector => document.querySelector(selector);
+
+  let currentAlbumId = null;
+  let currentPhotos = [];
+  let currentPhotoIndex = 0;
+
+  function getAlbums() {
+    const state = ML.state || {};
+    const photos = state.album || [];
+    const savedAlbums = state.albums || [];
+    const groups = new Map();
+
+    // Create groups from saved album records.
+    savedAlbums.forEach(album => {
+      groups.set(String(album.id), {
+        id: String(album.id),
+        name: album.name || 'Family Memories',
+        coverPhotoId: album.coverPhotoId || null,
+        audio: album.audio || null,
+        photos: []
+      });
+    });
+
+    // Add photos to their matching albums.
+    photos.forEach(photo => {
+      const id = String(photo.albumId || 'family-memories');
+
+      if (!groups.has(id)) {
+        groups.set(id, {
+          id,
+          name: photo.albumName || 'Family Memories',
+          coverPhotoId: null,
+          audio: null,
+          photos: []
+        });
+      }
+
+      groups.get(id).photos.push(photo);
+    });
+
+    return Array.from(groups.values()).filter(
+      album => album.photos.length > 0
+    );
+  }
+
+  function getCover(album) {
+    return album.photos.find(
+      photo => String(photo.id) === String(album.coverPhotoId)
+    ) || album.photos[0];
+  }
+
+  // Supports older albums where audio was saved with each photo.
+  function getAlbumAudio(album) {
+    if (album.audio) return album.audio;
+
+    const oldPhotoWithAudio = album.photos.find(photo => photo.audio);
+    return oldPhotoWithAudio ? oldPhotoWithAudio.audio : null;
+  }
 
   function renderAlbum() {
     const box = $('#albBody');
     if (!box) return;
 
-    const albumList = ML.state && ML.state.album ? ML.state.album : [];
+    currentAlbumId = null;
 
-    if (albumList.length === 0) {
+    const albums = getAlbums();
+
+    if (!albums.length) {
       box.innerHTML = `
-        <div class="text-center py-12">
-          <p class="text-6xl mb-3">🖼️</p>
-          <p class="text-xl font-bold text-stone-800">No photos in the album yet.</p>
-          <p class="text-sm text-stone-500 mt-1">Your caregiver can add family photos from the dashboard.</p>
+        <div class="album-empty">
+          <div class="empty-icon">📸</div>
+          <h2>Your Family Albums</h2>
+          <p>No albums have been added yet.</p>
+          <span>Your caregiver can create albums and add family photos.</span>
         </div>
       `;
-      if (typeof ML.say === 'function') ML.say('No photos in the album yet.');
+
+      if (typeof ML.say === 'function') {
+        ML.say('There are no family albums yet.');
+      }
       return;
     }
 
-    // Render interactive album grid or cards for the patient
     box.innerHTML = `
-      <div class="max-w-xl mx-auto space-y-6">
-        <div class="text-center mb-6">
-          <h2 class="text-2xl font-extrabold text-stone-900">Family Memory Lane</h2>
-          <p class="text-stone-500 text-sm mt-1">Tap a photo to remember and hear who is with you.</p>
-        </div>
-        
-        <div class="space-y-6" id="albumCardsContainer">
-          ${albumList.map((item, index) => `
-            <div class="bg-white border-2 border-stone-200 rounded-3xl p-6 shadow-sm album-card transition-all" data-id="${item.id}">
-              <div class="flex flex-col sm:flex-row gap-6 items-center">
-                <img src="${item.photo}" alt="Memory photo" class="w-40 h-40 object-cover rounded-2xl shadow-md border border-stone-100 flex-shrink-0">
-                <div class="flex-1 text-center sm:text-left space-y-3">
-                  <span class="bg-teal-50 text-teal-800 text-xs font-extrabold px-3 py-1 rounded-full border border-teal-200 inline-block">Memory #${index + 1}</span>
-                  <p class="text-xl font-bold text-stone-800 question-text">${item.question}</p>
-                  
-                  <!-- Hidden details revealed on tap -->
-                  <div class="reveal-section hidden space-y-3 pt-2 border-t border-stone-100">
-                    <p class="text-stone-600 font-medium caption-text bg-amber-50 p-3 rounded-xl border border-amber-200 text-sm">${item.caption}</p>
-                    ${item.audio ? `<audio controls class="w-full mt-2"><source src="${item.audio}" type="audio/mp3">Your browser does not support audio.</audio>` : ''}
-                  </div>
+      <div class="album-page">
 
-                  <button class="reveal-btn bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-sm transition cursor-pointer">
-                    Tap to remember 💭
-                  </button>
+        <div class="album-heading">
+          <span class="album-eyebrow">♡ YOUR SPECIAL MOMENTS ♡</span>
+          <h2>Our Family Albums</h2>
+          <p>Choose an album to revisit your memories.</p>
+
+          <div class="album-count">
+            📷 ${albums.length} Albums
+          </div>
+        </div>
+
+        <div class="memory-album-grid">
+          ${albums.map(album => {
+            const cover = getCover(album);
+
+            return `
+              <button
+                class="memory-album-card"
+                data-open-album="${album.id}"
+                type="button"
+              >
+                <div class="memory-album-cover">
+                  <img
+                    src="${cover.photo}"
+                    alt="${album.name}"
+                    loading="lazy"
+                  >
+
+                  <span class="memory-photo-count">
+                    📷 ${album.photos.length}
+                  </span>
                 </div>
-              </div>
-            </div>
+
+                <div class="memory-album-info">
+                  <h3>${album.name}</h3>
+                  <p>${album.photos.length} special moments</p>
+                  <span>Open Album →</span>
+                </div>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <div class="album-footer">
+          💗 Made with love, filled with memories.
+        </div>
+
+      </div>
+    `;
+
+    box.querySelectorAll('[data-open-album]').forEach(button => {
+      button.onclick = () => {
+        currentAlbumId = button.dataset.openAlbum;
+        renderPhotos();
+      };
+    });
+
+    if (typeof ML.say === 'function') {
+      ML.say('Choose a family album to explore.');
+    }
+  }
+
+  // Album page: one audio player at the top, followed by all photos.
+  function renderPhotos() {
+    const box = $('#albBody');
+
+    const album = getAlbums().find(
+      item => String(item.id) === String(currentAlbumId)
+    );
+
+    if (!box || !album) {
+      renderAlbum();
+      return;
+    }
+
+    currentPhotos = album.photos;
+    currentPhotoIndex = 0;
+
+    const albumAudio = getAlbumAudio(album);
+
+    box.innerHTML = `
+      <div class="album-page">
+
+        <button
+          class="album-back-btn"
+          id="backToAlbums"
+          type="button"
+        >
+          ← All Albums
+        </button>
+
+        <div class="album-heading">
+          <span class="album-eyebrow">♡ YOUR MEMORIES ♡</span>
+          <h2>${album.name}</h2>
+          <p>Every picture tells a special story.</p>
+
+          <div class="album-count">
+            📷 ${album.photos.length} Photos
+          </div>
+        </div>
+
+        ${albumAudio ? `
+          <div class="album-voice-note">
+            <p>🎙️ Listen to your family story</p>
+            <audio controls preload="none">
+              <source src="${albumAudio}">
+              Your browser does not support audio.
+            </audio>
+          </div>
+        ` : ''}
+
+        <div class="memory-photo-grid">
+          ${album.photos.map((photo, index) => `
+            <button
+              class="memory-photo-card"
+              data-photo-index="${index}"
+              type="button"
+            >
+              <img
+                src="${photo.photo}"
+                alt="Memory ${index + 1}"
+                loading="lazy"
+              >
+
+              <span>View Memory</span>
+            </button>
           `).join('')}
+        </div>
+
+      </div>
+    `;
+
+    $('#backToAlbums').onclick = renderAlbum;
+
+    box.querySelectorAll('[data-photo-index]').forEach(button => {
+      button.onclick = () => {
+        currentPhotoIndex = Number(button.dataset.photoIndex);
+        renderPhotoDetail();
+      };
+    });
+
+    if (typeof ML.say === 'function') {
+      ML.say(`Here are the photos from ${album.name}.`);
+    }
+  }
+
+  // Individual photo detail: no audio player here.
+  function renderPhotoDetail() {
+    const box = $('#albBody');
+    const photo = currentPhotos[currentPhotoIndex];
+
+    if (!box || !photo) return;
+
+    const album = getAlbums().find(
+      item => String(item.id) === String(currentAlbumId)
+    );
+
+    box.innerHTML = `
+      <div class="album-page">
+
+        <button
+          class="album-back-btn"
+          id="backToPhotos"
+          type="button"
+        >
+          ← Back to ${album ? album.name : 'Album'}
+        </button>
+
+        <div class="photo-detail">
+
+          <div class="photo-detail-image">
+            <img src="${photo.photo}" alt="Family memory">
+          </div>
+
+          <div class="photo-detail-content">
+
+            <span class="album-eyebrow">♡ A SPECIAL MOMENT ♡</span>
+
+            <h2>${photo.question || 'A beautiful memory'}</h2>
+
+            <div class="album-caption">
+              <span>💛</span>
+              <p>${photo.caption || 'A special family memory.'}</p>
+            </div>
+
+            <div class="photo-navigation">
+
+              <button
+                id="previousPhoto"
+                type="button"
+                ${currentPhotoIndex === 0 ? 'disabled' : ''}
+              >
+                ← Previous
+              </button>
+
+              <span>
+                ${currentPhotoIndex + 1} of ${currentPhotos.length}
+              </span>
+
+              <button
+                id="nextPhoto"
+                type="button"
+                ${currentPhotoIndex === currentPhotos.length - 1 ? 'disabled' : ''}
+              >
+                Next →
+              </button>
+
+            </div>
+          </div>
         </div>
       </div>
     `;
 
+    $('#backToPhotos').onclick = renderPhotos;
+
+    $('#previousPhoto').onclick = () => {
+      if (currentPhotoIndex > 0) {
+        currentPhotoIndex--;
+        renderPhotoDetail();
+      }
+    };
+
+    $('#nextPhoto').onclick = () => {
+      if (currentPhotoIndex < currentPhotos.length - 1) {
+        currentPhotoIndex++;
+        renderPhotoDetail();
+      }
+    };
+
     if (typeof ML.say === 'function') {
-      ML.say('Here is your photo memory album. Tap any photo to explore.');
+      ML.say(photo.caption || photo.question || 'Here is a family memory.');
     }
 
-    // Attach interaction logic to reveal captions and log album views
-    document.querySelectorAll('.album-card').forEach(card => {
-      const btn = card.querySelector('.reveal-btn');
-      const revealSec = card.querySelector('.reveal-section');
-      const questionText = card.querySelector('.question-text');
-      const photoId = card.dataset.id;
-      const itemData = albumList.find(x => x.id === photoId);
-
-      btn.onclick = () => {
-        const isHidden = revealSec.classList.contains('hidden');
-        if (isHidden) {
-          revealSec.classList.remove('hidden');
-          btn.textContent = 'Hide details';
-          btn.className = 'reveal-btn bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold text-sm px-5 py-2.5 rounded-xl transition cursor-pointer';
-          
-          // Speak caption aloud
-          if (itemData && itemData.caption && typeof ML.say === 'function') {
-            ML.say(itemData.caption);
-          }
-
-          // Log the activity to sync with the caregiver dashboard engagement chart
-          if (typeof ML.log === 'function') {
-            ML.log({ type: 'album', ref: photoId, status: 'done' });
-          }
-        } else {
-          revealSec.classList.add('hidden');
-          btn.textContent = 'Tap to remember 💭';
-          btn.className = 'reveal-btn bg-teal-600 hover:bg-teal-700 text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-sm transition cursor-pointer';
-        }
-      };
-    });
+    if (typeof ML.log === 'function') {
+      ML.log({
+        type: 'album',
+        ref: photo.id,
+        status: 'done'
+      });
+    }
   }
 
-  // Bind to ML.enter lifecycle used by patient.js
   ML.enter.album = renderAlbum;
+  ML.renderAlbum = renderAlbum;
 })();
